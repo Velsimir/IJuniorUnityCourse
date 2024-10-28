@@ -8,11 +8,11 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] private float _delay;
 
-    public static event Action<int> OnValueChanged;
+    public event Action<int> ValueChanged;
     
     private int _value;
     private Coroutine _increaseValue;
-
+    
     private void OnEnable()
     {
         MouseClickHandler.OnMouseClick += SwitchStatus;
@@ -25,14 +25,14 @@ public class Timer : MonoBehaviour
 
     private void SwitchStatus()
     {
-        if (_increaseValue == null)
-        {
-            _increaseValue = StartCoroutine(IncreaceValue());
-        }
-        else
+        if (_increaseValue != null)
         {
             StopCoroutine(_increaseValue);
             _increaseValue = null;
+        }
+        else
+        {
+            _increaseValue = StartCoroutine(IncreaceValue());
         }
     }
 
@@ -43,7 +43,7 @@ public class Timer : MonoBehaviour
         while (true)
         {
             _value++;
-            OnValueChanged?.Invoke(_value);
+            ValueChanged?.Invoke(_value);
             yield return waitDelay;
         }
     }
