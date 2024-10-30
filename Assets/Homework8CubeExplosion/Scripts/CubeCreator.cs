@@ -27,7 +27,7 @@ namespace Homework8
             
             for (int i = 0; i < Random.Range(_minAmount, _maxAmount); i++)
             {
-                Cube cube = Instantiate(_cubePrefab);
+                Cube cube = Instantiate(_cubePrefab, cubeExploded.transform.position, cubeExploded.transform.rotation);
                 cube.OnExplode += Create;
                 cube.Init(GetExplodeChance(cubeExploded), GetRandomColor(), GetNewSize(cubeExploded));
                 

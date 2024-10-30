@@ -13,9 +13,9 @@ namespace Homework8
         private float _minValueChanceExplode = 0;
         private float _maxValueChanceExplode = 100;
         private float _chanceExplode = 200;
+        private Vector3 _size = Vector3.one * 2;
         private Rigidbody _rigidbody;
         private Renderer _renderer;
-        private Vector3 _size;
         
         public Rigidbody Rigidbody => _rigidbody;
         public Vector3 Size => _size;
@@ -27,7 +27,8 @@ namespace Homework8
             _renderer = GetComponent<Renderer>();
             _chanceExplode = chanceExplode;
             _renderer.material.color = color;
-            _size = size;
+            transform.localScale = size;
+            _size = transform.localScale;
         }
 
         public void Explode()
@@ -36,13 +37,11 @@ namespace Homework8
 
             if (randomValue < ChanceExplode)
             {
-                Debug.Log($"Explode {randomValue} шанс взрыва {_chanceExplode}");
                 OnExplode?.Invoke(this);
                 Destroy(gameObject);
             }
             else
             {
-                Debug.Log($"Destroy {randomValue} шанс взрыва {_chanceExplode}");
                 Destroy(gameObject);
             }
         }
