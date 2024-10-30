@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class ShapeScaler : MonoBehaviour
+namespace Homework6
 {
-    [SerializeField] private float _speed;
-
-    private void Update()
+    public class ShapeScaler : MonoBehaviour
     {
-        Increase();
-    }
+        [SerializeField] private float _speed;
 
-    private void Increase()
-    {
-        transform.localScale += Vector3.one * (_speed * Time.deltaTime);
+        private void Update()
+        {
+            Increase();
+        }
+
+        private void Increase()
+        {
+            transform.localScale += Vector3.one * (_speed * Time.deltaTime);
+        }
     }
 }

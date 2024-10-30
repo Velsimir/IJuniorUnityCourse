@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class ShapeMover : MonoBehaviour
+namespace Homework6
 {
-    [SerializeField] private float _speed;
-    
-    private void Update()
+    public class ShapeMover : MonoBehaviour
     {
-        MoveForward();
-    }
+        [SerializeField] private float _speed;
 
-    public void MoveForward()
-    {
-        transform.Translate(Vector3.forward * (_speed * Time.deltaTime));
+        private void Update()
+        {
+            MoveForward();
+        }
+
+        public void MoveForward()
+        {
+            transform.Translate(Vector3.forward * (_speed * Time.deltaTime));
+        }
     }
 }

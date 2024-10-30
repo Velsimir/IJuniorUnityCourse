@@ -1,32 +1,35 @@
 using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(TextMeshProUGUI))]
-[RequireComponent(typeof(Timer))]
-public class TimerView : MonoBehaviour
+namespace Homework7
 {
-    private TextMeshProUGUI _textCounter;
-    private Timer _timer;
-
-    private void Awake()
+    [RequireComponent(typeof(TextMeshProUGUI))]
+    [RequireComponent(typeof(Timer))]
+    public class TimerView : MonoBehaviour
     {
-        _textCounter = GetComponent<TextMeshProUGUI>();
-        _timer = GetComponent<Timer>();
-        _textCounter.text = "";
-    }
+        private TextMeshProUGUI _textCounter;
+        private Timer _timer;
 
-    private void OnEnable()
-    {
-        _timer.ValueChanged += UpdateCounter;
-    }
+        private void Awake()
+        {
+            _textCounter = GetComponent<TextMeshProUGUI>();
+            _timer = GetComponent<Timer>();
+            _textCounter.text = "";
+        }
 
-    private void OnDisable()
-    {
-        _timer.ValueChanged -= UpdateCounter;
-    }
+        private void OnEnable()
+        {
+            _timer.ValueChanged += UpdateCounter;
+        }
 
-    private void UpdateCounter(int value)
-    {
-        _textCounter.text = value.ToString();
+        private void OnDisable()
+        {
+            _timer.ValueChanged -= UpdateCounter;
+        }
+
+        private void UpdateCounter(int value)
+        {
+            _textCounter.text = value.ToString();
+        }
     }
 }

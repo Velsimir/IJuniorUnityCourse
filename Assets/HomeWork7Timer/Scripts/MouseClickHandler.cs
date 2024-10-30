@@ -2,12 +2,15 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MouseClickHandler : MonoBehaviour, IPointerClickHandler
+namespace Homework7
 {
-    public static event Action OnMouseClick;
-    
-    public void OnPointerClick(PointerEventData eventData)
+    public class MouseClickHandler : MonoBehaviour, IPointerClickHandler
     {
-        OnMouseClick?.Invoke();
+        public static event Action OnMouseClick;
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            OnMouseClick?.Invoke();
+        }
     }
 }
