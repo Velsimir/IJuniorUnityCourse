@@ -6,9 +6,10 @@ namespace Homework8
 {
     public class RaycastClickHandler : MonoBehaviour
     {
-        public event Action<RaycastHit[]> RaycastsGot;
         private Ray _mouseRay;
         private InputSystem _inputSystem;
+        
+        public event Action<RaycastHit[]> RaycastsGot;
 
         private void Awake()
         {

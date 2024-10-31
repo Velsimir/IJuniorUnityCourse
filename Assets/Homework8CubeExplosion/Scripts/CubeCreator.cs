@@ -12,8 +12,6 @@ namespace Homework8
         [SerializeField] private float _explodeForce;
         [SerializeField] private float _explodeRadius;
         
-        private List<Rigidbody> _rigidbodiesToExplode;
-
         private void Awake()
         {
             Create(_cubePrefab);
@@ -21,25 +19,25 @@ namespace Homework8
 
         private void Create(Cube cubeExploded)
         {
-            cubeExploded.OnExplode -= Create;
+            cubeExploded.Exploding -= Create;
             
-            _rigidbodiesToExplode = new List<Rigidbody>();
+            List<Rigidbody> rigidbodiesToExplode = new List<Rigidbody>();
             
             for (int i = 0; i < Random.Range(_minAmount, _maxAmount); i++)
             {
                 Cube cube = Instantiate(_cubePrefab, cubeExploded.transform.position, cubeExploded.transform.rotation);
-                cube.OnExplode += Create;
+                cube.Exploding += Create;
                 cube.Init(GetExplodeChance(cubeExploded), GetRandomColor(), GetNewSize(cubeExploded));
                 
-                _rigidbodiesToExplode.Add(cube.Rigidbody);
-                
-                Explode(cube);
+                rigidbodiesToExplode.Add(cube.Rigidbody);
             }
+            
+            Explode(cubeExploded, rigidbodiesToExplode);
         }
 
-        private void Explode(Cube cube)
+        private void Explode(Cube cube, List<Rigidbody> rigidbodyToExplode)
         {
-            foreach (var rigidbody in _rigidbodiesToExplode)
+            foreach (var rigidbody in rigidbodyToExplode)
             {
                 rigidbody.AddExplosionForce(_explodeForce, cube.transform.position, _explodeRadius);
             }
@@ -56,18 +54,16 @@ namespace Homework8
 
         private float GetExplodeChance(Cube cube)
         {
-            float halfDevider = 2;
+            float devider = 2;
 
-            return cube.ChanceExplode / halfDevider;
+            return cube.ChanceExplode / devider;
         }
 
         private Vector3 GetNewSize(Cube cube)
         {
-            float halfDevider = 2;
-            
-            Vector3 newSize = new Vector3(cube.Size.x / halfDevider, cube.Size.y / halfDevider, cube.Size.z / halfDevider);
+            float devider = 2;
 
-            return newSize;
+            return new Vector3(cube.Size.x / devider, cube.Size.y / devider, cube.Size.z / devider);
         }
     }
 }

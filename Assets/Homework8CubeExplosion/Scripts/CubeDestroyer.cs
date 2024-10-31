@@ -26,10 +26,10 @@ namespace Homework8
         {
             foreach (var hit in raycastHits)
             {
-                if (hit.transform.GetComponent<Cube>())
-                {
-                    hit.transform.GetComponent<Cube>().Explode();
-                }
+                Cube cube = hit.collider.GetComponent<Cube>();
+                
+                if (cube != null)
+                    cube.Explode();
             }
         }
     }
