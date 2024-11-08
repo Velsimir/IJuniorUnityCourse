@@ -9,8 +9,10 @@ namespace Homework10FallenBlocks
     [RequireComponent(typeof(BoxCollider))]
     public class Cube : MonoBehaviour
     {
+        public event Action<Cube> Disappeared;
+        
         private Renderer _renderer;
-        private bool _isColorChange = false;
+        private bool _isInteract = false;
         private Color _originalColor;
         private float _lifeTime;
         private Coroutine _coroutineDisableAfterLifeTime;
@@ -23,9 +25,7 @@ namespace Homework10FallenBlocks
 
         private void OnCollisionEnter(Collision other)
         {
-            other.gameObject.GetComponentInParent<Floor>();
-
-            if (other != null && _isColorChange == false)
+            if (_isInteract == false)
                 Interact();
         }
 
@@ -34,7 +34,7 @@ namespace Homework10FallenBlocks
             gameObject.SetActive(true);
             transform.position = position;
             _renderer.material.color = _originalColor;
-            _isColorChange = false;
+            _isInteract = false;
             _lifeTime = 0;
         }
 
@@ -48,7 +48,7 @@ namespace Homework10FallenBlocks
         private void ChangeColor()
         {
             _renderer.material.color = GetRandomColor();
-            _isColorChange = true;
+            _isInteract = true;
         }
 
         private float GetRandomLifeTime()
@@ -73,6 +73,7 @@ namespace Homework10FallenBlocks
             yield return new WaitForSeconds(_lifeTime);
             _coroutineDisableAfterLifeTime = null;
             
+            Disappeared?.Invoke(this);
             gameObject.SetActive(false);
         }
     }
