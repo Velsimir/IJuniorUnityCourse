@@ -1,26 +1,21 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Homework10FallenBlocks
+namespace Homework10
 {
     [RequireComponent(typeof(BoxCollider))]
     [RequireComponent(typeof(CubeSpawner))]
     public class CubeThrower : MonoBehaviour
     {
-        [SerializeField] private List<Cube> _freeCubes;
         [SerializeField] private float _delay;
-
-        public event Action FreeCubesEnded;
         
+        private CubeSpawner _cubeSpawner;
         private Collider _spawnArea;
         private float _xMinPosition;
         private float _xMaxPosition;
         private float _zMinPosition;
         private float _zMaxPosition;
-        private CubeSpawner _cubeSpawner;
         
         private void Awake()
         {
@@ -34,16 +29,6 @@ namespace Homework10FallenBlocks
 
             StartCoroutine(TurnOn());
         }
-
-        private void OnEnable()
-        {
-            _cubeSpawner.CubeSpawned += AddCube;
-        }
-
-        private void OnDisable()
-        {
-            _cubeSpawner.CubeSpawned -= AddCube;
-        }
         
         private IEnumerator TurnOn()
         {
@@ -51,36 +36,15 @@ namespace Homework10FallenBlocks
             
             while (true)
             {
-                Cube cube = GetFreeCube();
-
-                if (cube != null)
-                    Throw(cube);
-                else
-                    FreeCubesEnded?.Invoke();
+                Throw(_cubeSpawner.GetFreeCube());
                 
                 yield return wait;
             }
         }
-
-        private void AddCube(Cube cube)
-        {
-            cube.Disappeared -= AddCube;
-            _freeCubes.Add(cube);
-        }
-
+        
         private void Throw(Cube cube)
         {
-            cube.Disappeared += AddCube;
             cube.Refresh(GetRandomPosition());
-            _freeCubes.Remove(cube);
-        }
-
-        private Cube GetFreeCube()
-        {
-            if (_freeCubes.Count > 0)
-                return _freeCubes[0];
-            else
-                return null;
         }
 
         private Vector3 GetRandomPosition()

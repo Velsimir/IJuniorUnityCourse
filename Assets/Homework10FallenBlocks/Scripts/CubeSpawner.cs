@@ -1,35 +1,41 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Homework10FallenBlocks
+namespace Homework10
 {
-    [RequireComponent(typeof(CubeThrower))]
     public class CubeSpawner : MonoBehaviour
     {
         [SerializeField] private Cube _cubesPrefab;
-
-        public event Action<Cube> CubeSpawned;
+        [SerializeField] private List<Cube> _freeCubes;
         
-        private CubeThrower _cubeThrower;
-
-        private void Awake()
+        public Cube GetFreeCube()
         {
-            _cubeThrower = GetComponent<CubeThrower>();
+            Cube cube;
+            
+            if (_freeCubes.Count > 0)
+            {
+                cube = _freeCubes[0];
+                _freeCubes.Remove(cube);
+                cube.Disappeared += AddFreeCube;
+                return cube;
+            }
+            else
+            {
+                cube = Create();
+                cube.Disappeared += AddFreeCube;
+                return cube;
+            }
         }
 
-        private void OnEnable()
+        private Cube Create()
         {
-            _cubeThrower.FreeCubesEnded += Create;
+            return Instantiate(_cubesPrefab);
         }
 
-        private void OnDisable()
+        private void AddFreeCube(Cube cube)
         {
-            _cubeThrower.FreeCubesEnded -= Create;
-        }
-
-        public void Create()
-        {
-            CubeSpawned?.Invoke(Instantiate(_cubesPrefab));
+            _freeCubes.Add(cube);
+            cube.Disappeared -= AddFreeCube;
         }
     }
 }

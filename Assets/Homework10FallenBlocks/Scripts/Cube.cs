@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Homework10FallenBlocks
+namespace Homework10
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(BoxCollider))]
@@ -25,7 +25,7 @@ namespace Homework10FallenBlocks
 
         private void OnCollisionEnter(Collision other)
         {
-            if (_isInteract == false)
+            if (_isInteract == false && other.gameObject.GetComponent<Floor>())
                 Interact();
         }
 
