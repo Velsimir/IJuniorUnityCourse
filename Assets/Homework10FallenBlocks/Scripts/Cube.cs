@@ -15,7 +15,6 @@ namespace Homework10
         private bool _isInteract = false;
         private Color _originalColor;
         private float _lifeTime;
-        private Coroutine _coroutineDisableAfterLifeTime;
         
         private void Awake()
         {
@@ -31,18 +30,18 @@ namespace Homework10
 
         public void Refresh(Vector3 position)
         {
-            gameObject.SetActive(true);
             transform.position = position;
             _renderer.material.color = _originalColor;
             _isInteract = false;
             _lifeTime = 0;
+            gameObject.SetActive(true);
         }
 
         private void Interact()
         {
             _lifeTime = GetRandomLifeTime();
             ChangeColor();
-            _coroutineDisableAfterLifeTime = StartCoroutine(DisableAfterLifeTime());
+            StartCoroutine(DisableAfterLifeTime());
         }
 
         private void ChangeColor()
@@ -71,7 +70,6 @@ namespace Homework10
         private IEnumerator DisableAfterLifeTime()
         {
             yield return new WaitForSeconds(_lifeTime);
-            _coroutineDisableAfterLifeTime = null;
             
             Disappeared?.Invoke(this);
             gameObject.SetActive(false);
