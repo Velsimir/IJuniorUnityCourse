@@ -670,8 +670,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad497bf123fc4aaf9628fb9fff0ed865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _freeCubes: []
   _delay: 0.2
+  _cubesPrefab: {fileID: 6647131062101362136, guid: 3ae8c32855a49b74d8c8c3b96ebecf12, type: 3}
 --- !u!114 &549620501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -684,7 +684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d703d8f2a8f046579edef9b04e3e19a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cubesPrefab: {fileID: 6647131062101362136, guid: 3ae8c32855a49b74d8c8c3b96ebecf12, type: 3}
+  _freeCubes: []
 --- !u!1 &740430513
 GameObject:
   m_ObjectHideFlags: 0
