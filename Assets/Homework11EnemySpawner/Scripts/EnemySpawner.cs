@@ -16,10 +16,10 @@ namespace Homework11
 
         private Vector3 GetRandomVectorDirectionNormalize()
         {
-            float maxAngle = 360f;
-            float minAngle = -360f;
-            
-            return new Vector3(Random.Range(minAngle, maxAngle), 0, Random.Range(minAngle, maxAngle)).normalized;
+            float angle = Random.Range(0f, 360f);
+            float radians = angle * Mathf.Deg2Rad;
+
+            return new Vector3(Mathf.Cos(radians), 0, Mathf.Sin(radians));
         }
     }
 }
