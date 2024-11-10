@@ -11,10 +11,10 @@ namespace Homework11
         public void Spawn()
         {
             Enemy enemy = Instantiate(_enemyPrefab, transform);
-            enemy.Initilazie(GetRandomVectorDirectionNormalize(), _enemySpeed);
+            enemy.Initilazie(GetRandomVectorDirection(), _enemySpeed);
         }
 
-        private Vector3 GetRandomVectorDirectionNormalize()
+        private Vector3 GetRandomVectorDirection()
         {
             float angle = Random.Range(0f, 360f);
             float radians = angle * Mathf.Deg2Rad;
