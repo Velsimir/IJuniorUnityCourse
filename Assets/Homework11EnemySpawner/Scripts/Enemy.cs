@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Homework11
@@ -9,12 +10,14 @@ namespace Homework11
         private EnemyMover _enemyMover;
         private Vector3 _moveDirection;
 
-        private void Start()
+        private void Awake()
         {
             _enemyMover = GetComponent<EnemyMover>();
-            _enemyMover.Initilazie(_speed);
-            
-            transform.Rotate(_moveDirection);
+        }
+
+        private void Start()
+        {
+            _enemyMover.Initilazie(_speed, _moveDirection);
         }
 
         public void Initilazie(Vector3 direction, float speed)

@@ -11,15 +11,15 @@ namespace Homework11
         public void Spawn()
         {
             Enemy enemy = Instantiate(_enemyPrefab, transform);
-            enemy.Initilazie(GetRandomVectorDirection(), _enemySpeed);
+            enemy.Initilazie(GetRandomVectorDirectionNormalize(), _enemySpeed);
         }
 
-        private Vector3 GetRandomVectorDirection()
+        private Vector3 GetRandomVectorDirectionNormalize()
         {
             float maxAngle = 360f;
-            float minAngle = 0f;
+            float minAngle = -360f;
             
-            return new Vector3(0, Random.Range(minAngle, maxAngle), 0);
+            return new Vector3(Random.Range(minAngle, maxAngle), 0, Random.Range(minAngle, maxAngle)).normalized;
         }
     }
 }
