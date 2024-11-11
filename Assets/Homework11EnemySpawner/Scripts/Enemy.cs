@@ -7,23 +7,22 @@ namespace Homework11
     public class Enemy : MonoBehaviour
     {
         private float _speed;
-        private EnemyMover _enemyMover;
-        private Vector3 _moveDirection;
+        private EnemyMover _mover;
 
         private void Awake()
         {
-            _enemyMover = GetComponent<EnemyMover>();
+            _mover = GetComponent<EnemyMover>();
         }
 
         private void Start()
         {
-            _enemyMover.Initilazie(_speed, _moveDirection);
+            _mover.StartMove(_speed);
         }
 
         public void Initilazie(Vector3 direction, float speed)
         {
-            _moveDirection = direction;
             _speed = speed;
+            transform.rotation = Quaternion.LookRotation(direction);
         }
     }
 }

@@ -3,21 +3,22 @@ using UnityEngine;
 public class EnemyMover : MonoBehaviour
 {
     private float _speed;
-    private Vector3 _direction;
-
+    private bool _isMoving;
+    
     private void Update()
     {
-        Move();
+        if (_isMoving)
+            Move();
     }
 
-    public void Initilazie(float speed, Vector3 direction)
+    public void StartMove(float speed)
     {
+        _isMoving = true;
         _speed = speed;
-        _direction = direction;
     }
 
     private void Move()
     {
-        transform.Translate(_direction * (_speed * Time.deltaTime));
+        transform.Translate(Vector3.forward * (_speed * Time.deltaTime));
     }
 }
