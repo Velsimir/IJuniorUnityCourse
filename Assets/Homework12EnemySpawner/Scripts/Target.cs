@@ -21,7 +21,7 @@ namespace Homework12
         {
             transform.position = Vector3.MoveTowards(transform.position, _currentPoint.transform.position, Time.deltaTime * _speed);
 
-            if (Vector3.Distance(transform.position, _currentPoint.transform.position) < _minDistance)
+            if (transform.position.IsEnoughDistance(_currentPoint.transform.position, _minDistance))
                 ChangePoint();
         }
 
