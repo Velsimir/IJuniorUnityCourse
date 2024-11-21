@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,12 +8,13 @@ namespace Homework15
     public class PlayerInputHandler : MonoBehaviour
     {
         private InputSystem _inputSystem;
-        private PlayerMover _playerMover;
+        
+        public Action<Vector2> MoveButtonPressed;
+        public Action JumpButtonPressed;
 
         private void Awake()
         {
             _inputSystem = new InputSystem();
-            _playerMover = GetComponent<PlayerMover>();
         }
 
         private void OnEnable()
@@ -33,12 +35,12 @@ namespace Homework15
 
         private void OnMove(InputAction.CallbackContext obj)
         {
-            _playerMover.SetDirecton(obj.ReadValue<Vector2>());
+            MoveButtonPressed?.Invoke(obj.ReadValue<Vector2>());
         }
         
         private void OnJump(InputAction.CallbackContext obj)
         {
-            _playerMover.Jump();
+            JumpButtonPressed?.Invoke();
         }
     }
 }

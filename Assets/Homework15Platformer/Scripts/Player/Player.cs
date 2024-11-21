@@ -6,6 +6,7 @@ namespace Homework15
     [RequireComponent(typeof(CapsuleCollider2D))]
     [RequireComponent(typeof(PlayerMover))]
     [RequireComponent(typeof(PlayerInputHandler))]
+    [RequireComponent(typeof(PlayerCharacteristic))]
     public class Player : MonoBehaviour
     {
         public Rigidbody2D Rigidbody2D { get; private set; }
