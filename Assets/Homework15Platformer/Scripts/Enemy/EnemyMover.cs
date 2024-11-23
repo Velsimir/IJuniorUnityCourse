@@ -11,14 +11,14 @@ namespace Homework15
 
         private Transform _currentTarget;
         private Transform _nextTarget;
-        private EnemyCharacteristic _enemyCharacteristic;
+        private EnemyCharacteristic _characteristic;
         private float _minDistanceToTarget = 0.2f;
 
         public Action<Vector2> DirectionChanged;
 
         private void Awake()
         {
-            _enemyCharacteristic = GetComponent<EnemyCharacteristic>();
+            _characteristic = GetComponent<EnemyCharacteristic>();
             _currentTarget = _targetTo;
             _nextTarget = _targetAt;
         }
@@ -32,7 +32,7 @@ namespace Homework15
         private void Patrol()
         {
             transform.position = Vector3
-                .MoveTowards(transform.position, _currentTarget.position, _enemyCharacteristic.Speed * Time.deltaTime);
+                .MoveTowards(transform.position, _currentTarget.position, _characteristic.Speed * Time.deltaTime);
         }
 
         private void ChangeTarget()

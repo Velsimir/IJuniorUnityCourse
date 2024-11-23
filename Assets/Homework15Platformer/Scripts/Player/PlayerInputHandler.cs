@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 
 namespace Homework15
 {
-    [RequireComponent(typeof(PlayerMover))]
     public class PlayerInputHandler : MonoBehaviour
     {
         private InputSystem _inputSystem;

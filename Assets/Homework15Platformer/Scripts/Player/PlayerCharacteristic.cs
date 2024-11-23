@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Homework15
 {
-    [RequireComponent(typeof(Player))]
     public class PlayerCharacteristic : MonoBehaviour
     {
         [SerializeField] private float _speed;

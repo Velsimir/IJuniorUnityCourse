@@ -15,8 +15,8 @@ namespace Homework15
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-            _spriteRenderer = GetComponent<SpriteRenderer>();
             _inputHandler = GetComponent<PlayerInputHandler>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         private void OnEnable()
