@@ -8,7 +8,7 @@ namespace Homework15
     [RequireComponent(typeof(SpriteRenderer))]
     public class PlayerVisual : MonoBehaviour
     {
-        private const string ANIMATOR_PARAMETER_SPEED = "Speed";
+        private const string AnimatorParameterSpeed = "Speed";
         
         private Animator _animator;
         private PlayerInputHandler _inputHandler;
@@ -38,7 +38,7 @@ namespace Homework15
             else if (vector2D.x < 0)
                 _spriteRenderer.flipX = true;
 
-            _animator.SetFloat(ANIMATOR_PARAMETER_SPEED, Math.Abs(vector2D.x));
+            _animator.SetFloat(AnimatorParameterSpeed, Math.Abs(vector2D.x));
         }
     }
 }
