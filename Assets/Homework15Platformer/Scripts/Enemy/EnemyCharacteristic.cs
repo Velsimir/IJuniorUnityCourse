@@ -4,8 +4,6 @@ namespace Homework15
 {
     public class EnemyCharacteristic : MonoBehaviour
     {
-        [SerializeField] private float _speed;
-        
-        public float Speed => _speed;
+        [field: SerializeField] public float Speed {get; private set;}
     }
 }

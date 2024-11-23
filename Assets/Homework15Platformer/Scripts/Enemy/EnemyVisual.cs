@@ -5,18 +5,16 @@ namespace Homework15
 {
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(EnemyMover))]
-    [RequireComponent(typeof(SpriteRenderer))]
     public class EnemyVisual : MonoBehaviour
     {
         private Animator _animator;
         private EnemyMover _mover;
-        private SpriteRenderer _spriteRenderer;
+        private float _reverseRotation = 180f;
 
         private void Awake()
         {
             _animator = GetComponent<Animator>();
             _mover = GetComponent<EnemyMover>();
-            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         private void OnEnable()
@@ -38,7 +36,7 @@ namespace Homework15
 
         private void FlipSprite(Vector2 vector2D)
         {
-            _spriteRenderer.flipX = vector2D.x < 0;
+            transform.Rotate(new Vector3(0f, _reverseRotation, 0f));
         }
     }
 }

@@ -19,13 +19,13 @@ namespace Homework15
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.transform.TryGetComponent<Floor>(out Floor floor))
+            if (collision.transform.TryGetComponent(out Floor floor))
                 IsOnFloor = true;
         }
         
         private void OnCollisionExit2D(Collision2D collision)
         {
-            if (collision.transform.TryGetComponent<Floor>(out Floor floor))
+            if (collision.transform.TryGetComponent(out Floor floor))
                 IsOnFloor = false;
         }
     }
