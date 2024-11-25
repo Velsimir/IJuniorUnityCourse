@@ -3,13 +3,14 @@ using UnityEngine;
 
 namespace Homework15
 {
-    [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(EnemyMover))]
     public class EnemyVisual : MonoBehaviour
     {
+        private const string AnimationParameterSpeed = "Speed";
+        
         private Animator _animator;
         private EnemyMover _mover;
-        private float _reverseRotation = 180f;
+        private Quaternion _rotationLeft = Quaternion.Euler(0, 180, 0);
+        private Quaternion _rotationRight = Quaternion.Euler(0, 0, 0);
 
         private void Awake()
         {
@@ -31,12 +32,15 @@ namespace Homework15
         
         private void ChangeAnimation(Vector2 vector2D)
         {
-            _animator.SetFloat("Speed", Math.Abs(vector2D.x));
+            _animator.SetFloat(AnimationParameterSpeed, Math.Abs(vector2D.x));
         }
 
         private void FlipSprite(Vector2 vector2D)
         {
-            transform.Rotate(new Vector3(0f, _reverseRotation, 0f));
+            if (vector2D.x < 0)
+                transform.rotation = _rotationLeft;
+            else if(vector2D.x > 0)
+                transform.rotation = _rotationRight;
         }
     }
 }

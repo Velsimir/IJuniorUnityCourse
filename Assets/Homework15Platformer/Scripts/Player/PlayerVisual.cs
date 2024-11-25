@@ -3,22 +3,19 @@ using UnityEngine;
 
 namespace Homework15
 {
-    [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(PlayerInputHandler))]
-    [RequireComponent(typeof(SpriteRenderer))]
     public class PlayerVisual : MonoBehaviour
     {
         private const string AnimatorParameterSpeed = "Speed";
         
         private Animator _animator;
         private PlayerInputHandler _inputHandler;
-        private SpriteRenderer _spriteRenderer;
+        private Quaternion _rotationLeft = Quaternion.Euler(0, 180, 0);
+        private Quaternion _rotationRight = Quaternion.Euler(0, 0, 0);
 
         private void Awake()
         {
             _animator = GetComponent<Animator>();
             _inputHandler = GetComponent<PlayerInputHandler>();
-            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         private void OnEnable()
@@ -34,10 +31,10 @@ namespace Homework15
         private void ChangeAnimation(Vector2 vector2D)
         {
             if (vector2D.x > 0)
-                _spriteRenderer.flipX = false;
+                transform.rotation = _rotationRight;
             else if (vector2D.x < 0)
-                _spriteRenderer.flipX = true;
-
+                transform.rotation = _rotationLeft;
+            
             _animator.SetFloat(AnimatorParameterSpeed, Math.Abs(vector2D.x));
         }
     }
