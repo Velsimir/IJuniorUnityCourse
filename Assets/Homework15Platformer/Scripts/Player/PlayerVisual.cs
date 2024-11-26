@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace Homework15
 {
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(PlayerInputHandler))]
     public class PlayerVisual : MonoBehaviour
     {
         private const string AnimatorParameterSpeed = "Speed";

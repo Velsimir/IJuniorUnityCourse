@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Homework15
 {
+    [RequireComponent(typeof(EnemyCharacteristic))]
     public class Enemy : MonoBehaviour
     {
         private int _health = 2;
@@ -24,14 +25,14 @@ namespace Homework15
         private void TakeDamage(int damage)
         {
             if (_health - damage < 0)
-                Death();
+                Die();
             else
                 _health -= damage;
         }
 
-        private void Death()
+        private void Die()
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }

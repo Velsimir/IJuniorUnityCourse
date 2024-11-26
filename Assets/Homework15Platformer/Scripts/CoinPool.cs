@@ -7,8 +7,6 @@ namespace Homework15
     {
         [SerializeField] private List<Coin> _freeCoins;
 
-        public bool HasFreeCoins { get { return _freeCoins.Count > 0; } }
-
         private void Awake()
         {
             _freeCoins = new List<Coin>();
@@ -16,8 +14,19 @@ namespace Homework15
 
         public Coin GetFree()
         {
-            Coin coin = _freeCoins[0];
-            _freeCoins.Remove(coin);
+            Coin coin;
+            
+            Debug.Log(_freeCoins.Count);
+            
+            if (_freeCoins.Count > 0)
+            {
+                coin = _freeCoins[0];
+                _freeCoins.Remove(coin);
+            }
+            else
+            {
+                coin = null;
+            }
             
             return coin;
         }

@@ -2,6 +2,10 @@ using UnityEngine;
 
 namespace Homework15
 {
+    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(Player))]
+    [RequireComponent(typeof(PlayerCharacteristic))]
+    [RequireComponent(typeof(PlayerInputHandler))]
     public class PlayerMover : MonoBehaviour
     {
         private PlayerCharacteristic _playerCharacteristic;

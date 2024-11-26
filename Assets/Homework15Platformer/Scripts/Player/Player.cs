@@ -2,18 +2,19 @@ using UnityEngine;
 
 namespace Homework15
 {
+    [RequireComponent(typeof(PlayerCharacteristic))]
     public class Player : MonoBehaviour
     {
         private PlayerCharacteristic _characteristic;
         private int _health;
-        private int _damage;
+        
         public bool IsOnFloor { get; private set; } = true;
-        public int Damage => _damage;
+        public int Damage { get; private set; }
 
         private void Awake()
         {
             _characteristic = GetComponent<PlayerCharacteristic>();
-            _damage = _characteristic.Damage;
+            Damage = _characteristic.Damage;
             _health = _characteristic.MaxHealth;
         }
 
@@ -25,14 +26,32 @@ namespace Homework15
             if (collision.transform.TryGetComponent(out Enemy enemy))
                 TakeDamage(enemy.Damage);
         }
-        
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.transform.TryGetComponent(out Item item))
+            {
+                switch (item)
+                {
+                    case Coin coin:
+                        coin.Collect();
+                        break;
+                    
+                    case HealthBag healthBag:
+                        healthBag.Collect();
+                        IncreaseHealth(healthBag.Value);
+                        break;
+                }
+            }
+        }
+
         private void OnCollisionExit2D(Collision2D collision)
         {
             if (collision.transform.TryGetComponent(out Floor floor))
                 IsOnFloor = false;
         }
 
-        public void IncreaseHealth(int amount)
+        private void IncreaseHealth(int amount)
         {
             if (amount + _health > _characteristic.MaxHealth)
                 _health = _characteristic.MaxHealth;

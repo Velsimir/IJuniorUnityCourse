@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Homework15
 {
+    [RequireComponent(typeof(BoxCollider2D))]
     public class EnemyAggression : MonoBehaviour
     {
         public event Action<Player> PlayerIn;

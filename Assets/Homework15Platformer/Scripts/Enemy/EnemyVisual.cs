@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace Homework15
 {
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(EnemyMover))]
     public class EnemyVisual : MonoBehaviour
     {
         private const string AnimationParameterSpeed = "Speed";

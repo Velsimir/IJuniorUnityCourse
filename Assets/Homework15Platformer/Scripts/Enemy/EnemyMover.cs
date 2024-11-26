@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace Homework15
 {
+    [RequireComponent(typeof(EnemyCharacteristic))]
+    [RequireComponent(typeof(Rigidbody2D))]
     public class EnemyMover : MonoBehaviour
     {
         [SerializeField] private Transform _targetAt;

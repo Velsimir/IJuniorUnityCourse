@@ -1788,7 +1788,7 @@ MonoBehaviour:
   - {fileID: 2093795581}
   - {fileID: 1088957604}
   _spawnInterval: 5
-  _coinPrefab: {fileID: 8903578524424771885, guid: 1d8fc776a8262b746bf323f35652e192, type: 3}
+  _coinPrefab: {fileID: 3225246303908422009, guid: 1d8fc776a8262b746bf323f35652e192, type: 3}
 --- !u!114 &1589290124
 MonoBehaviour:
   m_ObjectHideFlags: 0

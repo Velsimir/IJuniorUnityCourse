@@ -7,31 +7,20 @@ namespace Homework15
     [RequireComponent(typeof(CoinPool))]
     public class CoinSpawner : MonoBehaviour
     {
-        [SerializeField] private List<SpwanPoint> _spawnPoints;
+        [SerializeField] private List<SpawnCoinPoint> _emptySpawnPoints;
         [SerializeField] private float _spawnInterval;
         [SerializeField] private Coin _coinPrefab;
         
         private CoinPool _coinPool;
+        private List<SpawnCoinPoint> _filledSpawnPoints;
 
         private void Awake()
         {
             _coinPool = GetComponent<CoinPool>();
-            FillSpawnPoints();
+            
+            _filledSpawnPoints = new List<SpawnCoinPoint>();
 
             StartCoroutine(TurnOn());
-        }
-
-        private void Activate()
-        {
-            Coin coin = _coinPool.GetFree();
-            coin.Activate();
-            coin.Collected += Deactivate;
-        }
-
-        private void Deactivate(Coin coin)
-        {
-            _coinPool.AddCoin(coin);
-            coin.Collected -= Deactivate;
         }
 
         private IEnumerator TurnOn()
@@ -40,20 +29,43 @@ namespace Homework15
 
             while (true)
             {
-                if (_coinPool.HasFreeCoins)
-                    Activate();
-                
+                if (_emptySpawnPoints.Count > 0)
+                {
+                    Coin coin = _coinPool.GetFree();
+
+                    if (coin == null)
+                    {
+                        Create(_emptySpawnPoints[0]);
+                    }
+                    else
+                    {
+                        coin.Activate();
+                        coin.Collected += SendToPool;
+                    }
+                }
+
                 yield return wait;
             }
         }
 
-        private void FillSpawnPoints()
+        private void Create(SpawnCoinPoint spawnPoint)
         {
-            foreach (var point in _spawnPoints)
-            {
-                Coin coin = Instantiate(_coinPrefab, point.transform.position, Quaternion.identity);
-                coin.Collected += Deactivate;
-            }
+            Coin coin = Instantiate(_coinPrefab, spawnPoint.transform.position, Quaternion.identity);
+
+            coin.Collected += SendToPool;
+            
+            _emptySpawnPoints.Remove(spawnPoint);
+            spawnPoint.Activate();
+            _filledSpawnPoints.Add(spawnPoint);
+        }
+
+        private void SendToPool(Item item)
+        {
+            Coin coin = item as Coin;
+            
+            _coinPool.AddCoin(coin);
+            
+            coin.Collected -= SendToPool;
         }
     }
 }
