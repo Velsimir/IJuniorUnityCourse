@@ -32,7 +32,7 @@ namespace Homework15
         private void OnEnable()
         {
             _aggression.PlayerIn += FollowPlayer;
-            _aggression.PlayerOut += ReturnToPatoll;
+            _aggression.PlayerOut += BackOnPatrol;
         }
 
         private void Update()
@@ -44,7 +44,7 @@ namespace Homework15
         private void OnDisable()
         {
             _aggression.PlayerIn -= FollowPlayer;
-            _aggression.PlayerOut -= ReturnToPatoll;
+            _aggression.PlayerOut -= BackOnPatrol;
         }
 
         private void Patrol()
@@ -70,7 +70,7 @@ namespace Homework15
             _currentTarget = player.transform;
         }
         
-        private void ReturnToPatoll()
+        private void BackOnPatrol()
         {
             _currentTarget = _tempTarget;
         }
