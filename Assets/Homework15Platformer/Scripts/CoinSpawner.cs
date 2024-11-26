@@ -55,7 +55,6 @@ namespace Homework15
             coin.Collected += SendToPool;
             
             _emptySpawnPoints.Remove(spawnPoint);
-            spawnPoint.Activate();
             _filledSpawnPoints.Add(spawnPoint);
         }
 
