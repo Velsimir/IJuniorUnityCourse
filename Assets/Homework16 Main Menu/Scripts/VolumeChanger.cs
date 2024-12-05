@@ -18,7 +18,7 @@ namespace Homework16_Main_Menu.Scripts
 
         private float _amplitudeToDbMultiplier = 20f;
         private float _minVolume = -80f;
-        private float _maxVolume = 0f;
+        private float _lastMasterVolume;
 
         private void OnEnable()
         {
@@ -38,7 +38,8 @@ namespace Homework16_Main_Menu.Scripts
 
         private void ChangeMasterSoundVolume(float volume)
         {
-            _audioMixer.SetFloat(MasterSoundVolume, Mathf.Log10(volume) * _amplitudeToDbMultiplier);
+            _lastMasterVolume = Mathf.Log10(volume) * _amplitudeToDbMultiplier;
+            _audioMixer.SetFloat(MasterSoundVolume, _lastMasterVolume);
         }
 
         private void ChangeBackgroundSoundVolume(float volume)
@@ -54,7 +55,7 @@ namespace Homework16_Main_Menu.Scripts
         private void SoundSwitcher(bool flag)
         {
             if (flag)
-                _audioMixer.SetFloat(MasterSoundVolume, _maxVolume);
+                _audioMixer.SetFloat(MasterSoundVolume, _lastMasterVolume);
             else
                 _audioMixer.SetFloat(MasterSoundVolume, _minVolume);
         }
