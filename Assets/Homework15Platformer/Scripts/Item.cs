@@ -5,7 +5,7 @@ namespace Homework15
 {
     public class Item : MonoBehaviour
     {
-        [field: SerializeField] public int Value;
+        [field: SerializeField] public int Value {get; private set;}
         
         public event Action<Item> Collected;
 

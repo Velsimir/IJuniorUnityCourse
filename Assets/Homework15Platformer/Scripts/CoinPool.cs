@@ -16,8 +16,6 @@ namespace Homework15
         {
             Coin coin;
             
-            Debug.Log(_freeCoins.Count);
-            
             if (_freeCoins.Count > 0)
             {
                 coin = _freeCoins[0];
