@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -6,58 +7,77 @@ namespace Homework16_Main_Menu.Scripts
 {
     public class VolumeChanger : MonoBehaviour
     {
-        private const string MasterSoundVolume = "MasterSoundVolume";
-        private const string BackgroundSoundVolume = "BackGroundSoundVolume";
-        private const string EffectsSoundVolume = "EffectsSoundVolume";
-        
-        [SerializeField] private Slider _sliderMaserSoundVolume;
-        [SerializeField] private Slider _sliderBackGroundSoundVolume;
-        [SerializeField] private Slider _sliderEffectsSoundVolume;
+        [SerializeField] private List<SliderVolume> _sliderVolumes;
         [SerializeField] private Toggle _toggleSoundSwitcher;
         [SerializeField] private AudioMixer _audioMixer;
 
         private float _amplitudeToDbMultiplier = 20f;
         private float _minVolume = -80f;
-        private float _lastMasterVolume;
+        private Dictionary<string, float> _allSlidersParameters = new Dictionary<string, float>();
 
         private void OnEnable()
         {
-            _sliderMaserSoundVolume.onValueChanged.AddListener(ChangeMasterSoundVolume);
-            _sliderBackGroundSoundVolume.onValueChanged.AddListener(ChangeBackgroundSoundVolume);
-            _sliderEffectsSoundVolume.onValueChanged.AddListener(ChangeEffectsSoundVolume);
-            _toggleSoundSwitcher.onValueChanged.AddListener(SoundSwitcher);
+            ConnectAllSliders();
+            _toggleSoundSwitcher.onValueChanged.AddListener(ToggleAllSound);
         }
         
         private void OnDisable()
         {
-            _sliderMaserSoundVolume.onValueChanged.RemoveListener(ChangeMasterSoundVolume);
-            _sliderBackGroundSoundVolume.onValueChanged.RemoveListener(ChangeBackgroundSoundVolume);
-            _sliderEffectsSoundVolume.onValueChanged.RemoveListener(ChangeEffectsSoundVolume);
-            _toggleSoundSwitcher.onValueChanged.RemoveListener(SoundSwitcher);
+            DisconnectAllSliders();
+            _toggleSoundSwitcher.onValueChanged.RemoveListener(ToggleAllSound);
         }
 
-        private void ChangeMasterSoundVolume(float volume)
+        private void ConnectAllSliders()
         {
-            _lastMasterVolume = Mathf.Log10(volume) * _amplitudeToDbMultiplier;
-            _audioMixer.SetFloat(MasterSoundVolume, _lastMasterVolume);
+            foreach (var setting in _sliderVolumes)
+            {
+                setting.Slider.onValueChanged.AddListener(value => ChangeVolume(setting.MixerGroupParameter, value));
+            }
         }
 
-        private void ChangeBackgroundSoundVolume(float volume)
+        private void DisconnectAllSliders()
         {
-            _audioMixer.SetFloat(BackgroundSoundVolume, Mathf.Log10(volume) * _amplitudeToDbMultiplier);
+            foreach (var setting in _sliderVolumes)
+            {
+                setting.Slider.onValueChanged.RemoveAllListeners();
+            }
         }
 
-        private void ChangeEffectsSoundVolume(float volume)
+        private void ChangeVolume(string nameMixerGroup, float value)
         {
-            _audioMixer.SetFloat(EffectsSoundVolume, Mathf.Log10(volume) * _amplitudeToDbMultiplier);
+            float dbValue = Mathf.Log10(value) * _amplitudeToDbMultiplier;
+            
+            Debug.Log(nameMixerGroup + ": " + dbValue);
+            _audioMixer.SetFloat(nameMixerGroup, dbValue);
         }
 
-        private void SoundSwitcher(bool flag)
+        private void ToggleAllSound(bool isOn)
         {
-            if (flag)
-                _audioMixer.SetFloat(MasterSoundVolume, _lastMasterVolume);
-            else
-                _audioMixer.SetFloat(MasterSoundVolume, _minVolume);
+            string parameterName;
+            float value;
+            
+            foreach (var setting in _sliderVolumes)
+            {
+                parameterName = setting.MixerGroupParameter;
+                value = setting.Slider.value;
+
+                if (isOn)
+                {
+                    value = _allSlidersParameters[parameterName];
+                }
+                else
+                {
+                    SaveVolumeParameter(parameterName, value);
+                    value = _minVolume;
+                }
+                
+                ChangeVolume(parameterName, value);
+            }
+        }
+
+        private void SaveVolumeParameter(string parameter, float value)
+        {
+            _allSlidersParameters[parameter] = value;
         }
     }
 }

@@ -1206,6 +1206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 488608036}
   - component: {fileID: 488608037}
+  - component: {fileID: 488608038}
   m_Layer: 5
   m_Name: EffectsVolume
   m_TagString: Untagged
@@ -1286,6 +1287,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &488608038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488608035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05c8cc00360e4eeaa57f62dc24eb79c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MixerGroupParameter>k__BackingField: EffectsSoundVolume
 --- !u!1 &519795718
 GameObject:
   m_ObjectHideFlags: 0
@@ -2796,6 +2810,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1422845519}
   - component: {fileID: 1422845520}
+  - component: {fileID: 1422845521}
   m_Layer: 5
   m_Name: AllVolume
   m_TagString: Untagged
@@ -2876,6 +2891,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1422845521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422845518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05c8cc00360e4eeaa57f62dc24eb79c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MixerGroupParameter>k__BackingField: MasterSoundVolume
 --- !u!1 &1470345568
 GameObject:
   m_ObjectHideFlags: 0
@@ -3010,9 +3038,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346bed64d4594dcf81ff057d512d379e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sliderMaserSoundVolume: {fileID: 1422845520}
-  _sliderBackGroundSoundVolume: {fileID: 2124170939}
-  _sliderEffectsSoundVolume: {fileID: 488608037}
+  _sliderVolumes:
+  - {fileID: 1422845521}
+  - {fileID: 488608038}
+  - {fileID: 2124170940}
   _toggleSoundSwitcher: {fileID: 1759827337}
   _audioMixer: {fileID: 24100000, guid: 131bc202ab1234c4da5573f2bc8ee145, type: 2}
 --- !u!1 &1503288015
@@ -3906,6 +3935,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2124170938}
   - component: {fileID: 2124170939}
+  - component: {fileID: 2124170940}
   m_Layer: 5
   m_Name: BackgroundMusicVolume
   m_TagString: Untagged
@@ -3986,6 +4016,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2124170940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124170937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05c8cc00360e4eeaa57f62dc24eb79c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MixerGroupParameter>k__BackingField: BackGroundSoundVolume
 --- !u!1 &2129848265
 GameObject:
   m_ObjectHideFlags: 0
