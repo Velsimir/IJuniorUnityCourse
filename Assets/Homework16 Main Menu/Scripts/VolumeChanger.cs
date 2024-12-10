@@ -47,7 +47,6 @@ namespace Homework16_Main_Menu.Scripts
         {
             float dbValue = Mathf.Log10(value) * _amplitudeToDbMultiplier;
             
-            Debug.Log(nameMixerGroup + ": " + dbValue);
             _audioMixer.SetFloat(nameMixerGroup, dbValue);
         }
 
