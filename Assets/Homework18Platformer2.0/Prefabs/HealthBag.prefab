@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1111895117773089405}
   - component: {fileID: 3554041856498412876}
   - component: {fileID: 7071528012721990575}
-  - component: {fileID: 8841864112998096606}
+  - component: {fileID: 5804569636935671222}
   m_Layer: 0
   m_Name: HealthBag
   m_TagString: Untagged
@@ -135,7 +135,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.6, y: 1.6}
   m_EdgeRadius: 0
---- !u!114 &8841864112998096606
+--- !u!114 &5804569636935671222
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1263919452004007565}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9ed84371209eae4b8bbd0bcaead04f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 50d64918e6ebccf42a28bc089b5cd286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Value>k__BackingField: 1
+  Value: 1
