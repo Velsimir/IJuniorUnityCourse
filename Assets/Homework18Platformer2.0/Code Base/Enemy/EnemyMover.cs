@@ -35,7 +35,7 @@ namespace Homework18
             _aggression.PlayerOut += BackOnPatrol;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             Patrol();
             ChangeTarget();

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Homework18
@@ -6,6 +5,7 @@ namespace Homework18
     [RequireComponent(typeof(Characteristic))]
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(PlayerMover))]
+    [RequireComponent(typeof(ItemCatcher))]
     public class Player : MonoBehaviour
     {
         private Characteristic _characteristic;
@@ -26,7 +26,7 @@ namespace Homework18
         {
             _health.HealthEnded += Die;
         }
-
+        
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.transform.TryGetComponent(out Floor floor))
@@ -36,36 +36,18 @@ namespace Homework18
                 TakeDamage(enemy.Damage);
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnDisable()
         {
-            if (collision.transform.TryGetComponent(out Item item))
-            {
-                switch (item)
-                {
-                    case Coin coin:
-                        coin.Collect();
-                        break;
-                    
-                    case HealthBag healthBag:
-                        healthBag.Collect();
-                        IncreaseHealth(healthBag.Value);
-                        break;
-                }
-            }
+            _health.HealthEnded -= Die;
         }
-
+        
         private void OnCollisionExit2D(Collision2D collision)
         {
             if (collision.transform.TryGetComponent(out Floor floor))
                 IsOnFloor = false;
         }
 
-        private void OnDisable()
-        {
-            _health.HealthEnded -= Die;
-        }
-
-        private void IncreaseHealth(int value)
+        public void IncreaseHealth(int value)
         {
             _health.Increase(value);
         }

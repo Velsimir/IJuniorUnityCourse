@@ -10,6 +10,7 @@ namespace Homework18
         
         public Action<Vector2> MoveButtonPressed;
         public Action JumpButtonPressed;
+        public Action AttackedButtonPressed;
 
         private void Awake()
         {
@@ -21,6 +22,7 @@ namespace Homework18
             _inputSystem.Player.Move.performed += OnMove;
             _inputSystem.Player.Move.canceled += OnMove;
             _inputSystem.Player.Jump.performed += OnJump;
+            _inputSystem.Player.Attack.performed += OnAttack;
             _inputSystem.Enable();
         }
 
@@ -29,6 +31,7 @@ namespace Homework18
             _inputSystem.Player.Move.performed -= OnMove;
             _inputSystem.Player.Move.canceled += OnMove;
             _inputSystem.Player.Jump.performed -= OnJump;
+            _inputSystem.Player.Attack.performed -= OnAttack;
             _inputSystem.Disable();
         }
 
@@ -40,6 +43,11 @@ namespace Homework18
         private void OnJump(InputAction.CallbackContext obj)
         {
             JumpButtonPressed?.Invoke();
+        }
+
+        private void OnAttack(InputAction.CallbackContext obj)
+        {
+            AttackedButtonPressed?.Invoke();
         }
     }
 }

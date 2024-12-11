@@ -4,11 +4,12 @@ using UnityEngine.UI;
 
 namespace Homework18
 {
-    public class SliderSmoothView : MonoBehaviour, IHealthView
+    public class SliderSmoothView : MonoBehaviour, ISliderView
     {
-        [SerializeField] private Health _health;
         [SerializeField] private float _speed;
-        
+
+        private float _currentValue;
+        private float _maxValue;
         private Slider _slider;
         private float _sliderPercent;
         private Coroutine _coroutineChangeValue;
@@ -19,22 +20,12 @@ namespace Homework18
             _sliderPercent = (_slider.maxValue - _slider.minValue) / 100;
         }
 
-        private void Start()
+        public void Initialize(float maxValue)
         {
-            UpdateHealth();
+            _maxValue = maxValue;
         }
 
-        private void OnEnable()
-        {
-            _health.HealthChanged += UpdateHealth;
-        }
-        
-        private void OnDisable()
-        {
-            _health.HealthChanged -= UpdateHealth;
-        }
-
-        public void UpdateHealth()
+        public void UpdateValue(float value)
         {
             if (_coroutineChangeValue != null)
             {
@@ -42,23 +33,23 @@ namespace Homework18
                 _coroutineChangeValue = null;
             }
             
-            _coroutineChangeValue = StartCoroutine(ChangeValue());
+            _coroutineChangeValue = StartCoroutine(ChangeValue(value));
         }
 
         private float TransferToSliderValue(float value)
         {
-            float currentHealthPercent = (value / _health.MaxHealth) * 100;
+            float currentHealthPercent = (value / _maxValue) * 100;
             
             return currentHealthPercent * _sliderPercent;
         }
         
-        private IEnumerator ChangeValue()
+        private IEnumerator ChangeValue(float value)
         {
             WaitForEndOfFrame wait = new WaitForEndOfFrame();
             
             while (true)
             {
-                _slider.value = Mathf.MoveTowards(_slider.value,TransferToSliderValue(_health.CurrentHealth), Time.deltaTime * _speed);
+                _slider.value = Mathf.MoveTowards(_slider.value,TransferToSliderValue(value), Time.deltaTime * _speed);
                 
                 yield return wait;
             }

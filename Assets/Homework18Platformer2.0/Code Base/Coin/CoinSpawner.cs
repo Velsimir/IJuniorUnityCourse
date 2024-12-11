@@ -13,6 +13,7 @@ namespace Homework18
         
         private CoinPool _coinPool;
         private List<SpawnCoinPoint> _filledSpawnPoints;
+        private bool _isSpawning = true;
 
         private void Awake()
         {
@@ -27,7 +28,7 @@ namespace Homework18
         {
             WaitForSeconds wait = new WaitForSeconds(_spawnInterval);
 
-            while (true)
+            while (_isSpawning)
             {
                 if (_emptySpawnPoints.Count > 0)
                 {

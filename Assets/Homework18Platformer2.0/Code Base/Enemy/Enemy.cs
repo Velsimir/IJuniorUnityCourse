@@ -35,7 +35,7 @@ namespace Homework18
             _health.HealthEnded -= Die;
         }
 
-        private void TakeDamage(int damage)
+        public void TakeDamage(int damage)
         {
             _health.Decrease(damage);
         }

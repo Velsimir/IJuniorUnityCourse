@@ -4,10 +4,9 @@ using UnityEngine.UI;
 namespace Homework18
 {
     [RequireComponent(typeof(Slider))]
-    public class SliderView : MonoBehaviour, IHealthView
+    public class SliderView : MonoBehaviour, ISliderView
     {
-        [SerializeField] private Health _health;
-        
+        private float _maxValue;
         private Slider _slider;
         private float _sliderPercent;
 
@@ -19,27 +18,17 @@ namespace Homework18
 
         private void Start()
         {
-            _slider.value = TransferToSliderValue(_health.MaxHealth);
+            _slider.value = TransferToSliderValue(_maxValue);
         }
 
-        private void OnEnable()
+        public void UpdateValue(float value)
         {
-            _health.HealthChanged += UpdateHealth;
-        }
-        
-        private void OnDisable()
-        {
-            _health.HealthChanged -= UpdateHealth;
-        }
-
-        public void UpdateHealth()
-        {
-            _slider.value = TransferToSliderValue(_health.CurrentHealth);
+            _slider.value = TransferToSliderValue(value);
         }
 
         private float TransferToSliderValue(float value)
         {
-            float currentHealthPercent = (value / _health.MaxHealth) * 100;
+            float currentHealthPercent = (value / _maxValue) * 100;
             
             return currentHealthPercent * _sliderPercent;
         }

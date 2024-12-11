@@ -259,7 +259,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c78af6a17e190247adfc92616e18d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: {fileID: 3867885424166351701}
   _speed: 0.5
 --- !u!1 &3823159547266781359
 GameObject:
@@ -451,7 +450,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865eba1dd98e78a4592833324f9a4909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
 --- !u!1 &4773587458222272011
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,8 +711,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba1717b032854a942bae1ead37d73d4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 3
-  <Speed>k__BackingField: 2
+  <MaxHealth>k__BackingField: 10
+  <Speed>k__BackingField: 5
   <Damage>k__BackingField: 1
   <JumpForce>k__BackingField: 0
 --- !u!114 &3867885424166351701
@@ -729,6 +727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2243d698a77336f458a8c00dc5ae809b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sliderSmoothView: {fileID: 7901256268730835217}
   <MaxHealth>k__BackingField: 0
   <CurrentHealth>k__BackingField: 0
 --- !u!114 &3184670049456699018

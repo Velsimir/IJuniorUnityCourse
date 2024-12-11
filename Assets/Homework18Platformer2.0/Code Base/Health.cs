@@ -1,15 +1,21 @@
 using System;
+using NUnit.Framework;
 using UnityEngine;
 
 namespace Homework18
 {
     public class Health : MonoBehaviour
     {
-        [field: SerializeField] public float MaxHealth { get; private set; }
-        [field: SerializeField] public float CurrentHealth { get; private set; }
+        [SerializeField] private SliderSmoothView _sliderSmoothView;
+        public float MaxHealth { get; private set; }
+        public float CurrentHealth { get; private set; }
 
-        public event Action HealthChanged;
-        public event Action HealthEnded; 
+        public event Action HealthEnded;
+
+        private void Awake()
+        {
+            _sliderSmoothView.Initialize(MaxHealth);
+        }
 
         public void SetMaxHealth(float maxHealth)
         {
@@ -18,7 +24,7 @@ namespace Homework18
             
             CurrentHealth = MaxHealth;
             
-            HealthChanged?.Invoke();
+            _sliderSmoothView.UpdateValue(CurrentHealth);
         }
 
         public void Increase(int value)
@@ -30,7 +36,7 @@ namespace Homework18
                 else
                     CurrentHealth += value;
 
-                HealthChanged?.Invoke();
+                _sliderSmoothView.UpdateValue(CurrentHealth);
             }
         }
 
@@ -48,7 +54,7 @@ namespace Homework18
                     CurrentHealth -= value;
                 }
                 
-                HealthChanged?.Invoke();
+                _sliderSmoothView.UpdateValue(CurrentHealth);
             }
         }
     }
