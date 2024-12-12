@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Homework18
@@ -15,13 +14,13 @@ namespace Homework18
         [SerializeField] private Player _player;
 
         private Coroutine _coroutineSpell;
-        private Coroutine _coroutineCooldown;
         private SpriteRenderer _circleRenderer;
         private Color _circleColorDefault;
         private Color _circleColorAlpha0 = new Color(1, 1, 1, 0);
         
         private void Awake()
         {
+            Duration = _duration;
             Cooldown = _cooldown;
             _circleRenderer = GetComponent<SpriteRenderer>();
             _circleRenderer.transform.localScale = new Vector3(_radius * 2, _radius * 2, 1f);
@@ -29,7 +28,7 @@ namespace Homework18
             _circleRenderer.color = _circleColorAlpha0;
         }
         
-        public override void Use(SliderSmoothView sliderSmoothView)
+        public override void Use()
         {
             if (_coroutineSpell != null)
             {
@@ -37,25 +36,19 @@ namespace Homework18
                 _coroutineSpell = null;
             }
 
-            _coroutineSpell = StartCoroutine(Cast(sliderSmoothView));
+            _coroutineSpell = StartCoroutine(Cast());
         }
 
-        protected override IEnumerator Cast(SliderSmoothView sliderSmoothView)
+        protected override IEnumerator Cast()
         {
             WaitForSeconds wait = new WaitForSeconds(_tickInterval);
-            sliderSmoothView.Initialize(_duration);
+            float currentTime = 0f;
                 
-            float startTime = Time.time;
-            float currentTime = 0;
-            
             _circleRenderer.color = _circleColorDefault;
 
             while (currentTime < _duration)
             {
-                currentTime = Time.time - startTime;
-                    
-                sliderSmoothView.UpdateValue(currentTime);
-                    
+                currentTime += _tickInterval;
                 MakeVampirize();
                     
                 yield return wait;
@@ -68,25 +61,40 @@ namespace Homework18
 
         private void MakeVampirize()
         {
-            foreach (var enemy in FindEnemies())
+            Enemy enemy = FindClosestEnemy();
+
+            if (enemy != null)
             {
-                enemy.TakeDamage(_damage);
-                _player.IncreaseHealth(_damage);
+                if (enemy.CurrentHealth - _damage >= 0)
+                {
+                    enemy.TakeDamage(_damage);
+                    _player.IncreaseHealth(_damage);
+                }
+                else
+                {
+                    enemy.TakeDamage(_damage);
+                    _player.IncreaseHealth(enemy.CurrentHealth);
+                }
+
             }
         }
 
-        private List<Enemy> FindEnemies()
+        private Enemy FindClosestEnemy()
         {
             Collider2D[] _colliders = Physics2D.OverlapCircleAll(transform.position, _radius);
-            List<Enemy> enemies = new List<Enemy>();
+            Enemy closestEnemy = null;
+            float closestDistance = float.MaxValue;
             
             foreach (var collider in _colliders)
             {
                 if (collider.TryGetComponent(out Enemy enemy))
-                    enemies.Add(enemy);
+                {
+                    if (closestDistance > Vector2.Distance(_player.transform.position, enemy.transform.position))
+                        closestEnemy = enemy;
+                }
             }
             
-            return enemies;
+            return closestEnemy;
         }
     }
 }

@@ -16,21 +16,16 @@ namespace Homework18
             _sliderPercent = (_slider.maxValue - _slider.minValue) / 100;
         }
 
-        private void Start()
+        private float TransferToSliderValue(float maxValue, float targetValue, float fixedTime)
         {
-            _slider.value = TransferToSliderValue(_maxValue);
-        }
-
-        public void UpdateValue(float value)
-        {
-            _slider.value = TransferToSliderValue(value);
-        }
-
-        private float TransferToSliderValue(float value)
-        {
-            float currentHealthPercent = (value / _maxValue) * 100;
+            float currentHealthPercent = (targetValue / maxValue) * 100;
             
             return currentHealthPercent * _sliderPercent;
+        }
+
+        public void UpdateValue(float maxValue, float targetValue, float fixedTime)
+        {
+            _slider.value = TransferToSliderValue(maxValue, targetValue, fixedTime);
         }
     }
 }

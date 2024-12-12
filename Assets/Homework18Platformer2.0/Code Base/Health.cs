@@ -1,5 +1,4 @@
 using System;
-using NUnit.Framework;
 using UnityEngine;
 
 namespace Homework18
@@ -7,15 +6,11 @@ namespace Homework18
     public class Health : MonoBehaviour
     {
         [SerializeField] private SliderSmoothView _sliderSmoothView;
+        [SerializeField] private float _speedUpdate;
         public float MaxHealth { get; private set; }
         public float CurrentHealth { get; private set; }
 
         public event Action HealthEnded;
-
-        private void Awake()
-        {
-            _sliderSmoothView.Initialize(MaxHealth);
-        }
 
         public void SetMaxHealth(float maxHealth)
         {
@@ -24,10 +19,10 @@ namespace Homework18
             
             CurrentHealth = MaxHealth;
             
-            _sliderSmoothView.UpdateValue(CurrentHealth);
+            _sliderSmoothView.UpdateValue(MaxHealth,CurrentHealth, 0);
         }
 
-        public void Increase(int value)
+        public void Increase(float value)
         {
             if (value >= 0)
             {
@@ -36,11 +31,11 @@ namespace Homework18
                 else
                     CurrentHealth += value;
 
-                _sliderSmoothView.UpdateValue(CurrentHealth);
+                _sliderSmoothView.UpdateValue(MaxHealth, CurrentHealth, _speedUpdate);
             }
         }
 
-        public void Decrease(int value)
+        public void Decrease(float value)
         {
             if (value >= 0)
             {
@@ -54,7 +49,7 @@ namespace Homework18
                     CurrentHealth -= value;
                 }
                 
-                _sliderSmoothView.UpdateValue(CurrentHealth);
+                _sliderSmoothView.UpdateValue(MaxHealth, CurrentHealth, _speedUpdate);
             }
         }
     }

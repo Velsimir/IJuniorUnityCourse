@@ -6,10 +6,7 @@ namespace Homework18
 {
     public class SliderSmoothView : MonoBehaviour, ISliderView
     {
-        [SerializeField] private float _speed;
-
         private float _currentValue;
-        private float _maxValue;
         private Slider _slider;
         private float _sliderPercent;
         private Coroutine _coroutineChangeValue;
@@ -20,12 +17,7 @@ namespace Homework18
             _sliderPercent = (_slider.maxValue - _slider.minValue) / 100;
         }
 
-        public void Initialize(float maxValue)
-        {
-            _maxValue = maxValue;
-        }
-
-        public void UpdateValue(float value)
+        public void UpdateValue(float maxValue, float targetValue, float fixedTime)
         {
             if (_coroutineChangeValue != null)
             {
@@ -33,25 +25,29 @@ namespace Homework18
                 _coroutineChangeValue = null;
             }
             
-            _coroutineChangeValue = StartCoroutine(ChangeValue(value));
+            _coroutineChangeValue = StartCoroutine(IncreaseValue(maxValue, targetValue, fixedTime));
         }
 
-        private float TransferToSliderValue(float value)
+        private float TransferToSliderValue(float maxValue, float targetValue)
         {
-            float currentHealthPercent = (value / _maxValue) * 100;
+            float currentHealthPercent = (targetValue / maxValue) * 100;
             
             return currentHealthPercent * _sliderPercent;
         }
-        
-        private IEnumerator ChangeValue(float value)
+
+        private IEnumerator IncreaseValue(float maxValue, float targetValue, float fixedTime)
         {
-            WaitForEndOfFrame wait = new WaitForEndOfFrame();
+            WaitForEndOfFrame waitForEndOfFrame = new WaitForEndOfFrame();
+            float startSliderValue = _slider.value;
+            float targetSliderValue = TransferToSliderValue(maxValue, targetValue);
+            float elapsedTime = 0f;
             
-            while (true)
+            while (startSliderValue != targetSliderValue)
             {
-                _slider.value = Mathf.MoveTowards(_slider.value,TransferToSliderValue(value), Time.deltaTime * _speed);
+                elapsedTime += Time.deltaTime;
                 
-                yield return wait;
+                _slider.value = Mathf.Lerp(startSliderValue, targetSliderValue, elapsedTime / fixedTime);
+                yield return waitForEndOfFrame;
             }
         }
     }

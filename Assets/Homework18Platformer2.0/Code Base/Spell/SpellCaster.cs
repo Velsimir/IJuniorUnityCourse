@@ -43,29 +43,31 @@ namespace Homework18
 
         private IEnumerator Cooldown()
         {
-            WaitForSeconds wait = new WaitForSeconds(1f);
-            _sliderSmoothView.Initialize(_spell.Cooldown);
+            float oneSecond = 1.0f;
             
-            float startTime = Time.time;
+            WaitForSeconds wait = new WaitForSeconds(oneSecond);
+            
+            _sliderSmoothView.UpdateValue(_spell.Cooldown, 0f, _spell.Cooldown);
+            
             float currentTime = 0;
 
             while (currentTime < _spell.Cooldown)
             {
-                currentTime = Time.time - startTime;
-                
-                _sliderSmoothView.UpdateValue(_spell.Cooldown - currentTime);
+                currentTime += oneSecond;
                 
                 yield return wait;
             }
             
-            _sliderSmoothView.UpdateValue(0);
             _isEnable = true;
         }
 
         private void CastSpell()
         {
             if (_isEnable)
-                _spell.Use(_sliderSmoothView);
+            {
+                _spell.Use();
+                _sliderSmoothView.UpdateValue(_spell.Duration, _spell.Duration, _spell.Duration);
+            }
             
             _isEnable = false;
         }

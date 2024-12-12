@@ -6,8 +6,6 @@ namespace Homework18
     [RequireComponent(typeof(TMPro.TextMeshProUGUI))]
     public class ISliderTextView : MonoBehaviour, ISliderView
     {
-        private float _maxValue;
-        private float _currentValue;
         private TextMeshProUGUI _text;
 
         private void Awake()
@@ -15,14 +13,9 @@ namespace Homework18
             _text = GetComponent<TextMeshProUGUI>();
         }
 
-        public void Initialize(float maxValue)
+        public void UpdateValue(float maxValue, float targetValue, float fixedTime)
         {
-            _maxValue = maxValue;
-        }
-
-        public void UpdateValue(float value)
-        {
-            _text.text = $"Здоровье {_currentValue}/ {_maxValue}";
+            _text.text = $"Здоровье {targetValue}/ {maxValue}";
         }
     }
 }

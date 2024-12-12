@@ -47,12 +47,12 @@ namespace Homework18
                 IsOnFloor = false;
         }
 
-        public void IncreaseHealth(int value)
+        public void IncreaseHealth(float value)
         {
             _health.Increase(value);
         }
 
-        private void TakeDamage(int damage)
+        private void TakeDamage(float damage)
         {
             _health.Decrease(damage);
         }

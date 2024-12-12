@@ -2644,7 +2644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _radius: 5
-  _duration: 3
+  _duration: 6
   _cooldown: 4
   _tickInterval: 1
   _damage: 1
@@ -4188,7 +4188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c78af6a17e190247adfc92616e18d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.9
+  _speed: 0.3
 --- !u!114 &2053960490
 MonoBehaviour:
   m_ObjectHideFlags: 0

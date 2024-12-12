@@ -10,6 +10,7 @@ namespace Homework18
         private Health _health;
         private Characteristic _characteristic;
         public int Damage { get; private set; }
+        public float CurrentHealth { get { return _health.CurrentHealth; } }
 
         private void Awake()
         {

@@ -7,11 +7,12 @@ namespace Homework18
     public abstract class Spell : MonoBehaviour
     {
         public float Cooldown { get; protected set; }
+        public float Duration { get; protected set; }
         
         public event Action CastFinished;
         
-        public abstract void Use(SliderSmoothView sliderSmoothView);
-        protected abstract IEnumerator Cast(SliderSmoothView sliderSmoothView);
+        public abstract void Use();
+        protected abstract IEnumerator Cast();
 
         protected void SendCastFinished()
         {
