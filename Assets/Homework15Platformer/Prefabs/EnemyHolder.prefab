@@ -259,7 +259,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c78af6a17e190247adfc92616e18d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.5
 --- !u!1 &3823159547266781359
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,11 +529,11 @@ GameObject:
   - component: {fileID: 8341760681232221455}
   - component: {fileID: 1567343510569600666}
   - component: {fileID: 627640739030859081}
-  - component: {fileID: 7202832525687344321}
   - component: {fileID: 3867885424166351701}
   - component: {fileID: 3184670049456699018}
   - component: {fileID: 124253210061129680}
   - component: {fileID: 4038482595749208649}
+  - component: {fileID: 5369215451731687201}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -699,22 +698,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1.6}
   m_Direction: 0
---- !u!114 &7202832525687344321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7841887267428314801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba1717b032854a942bae1ead37d73d4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 10
-  <Speed>k__BackingField: 5
-  <Damage>k__BackingField: 1
-  <JumpForce>k__BackingField: 0
 --- !u!114 &3867885424166351701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -728,8 +711,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sliderSmoothView: {fileID: 7901256268730835217}
-  <MaxHealth>k__BackingField: 0
-  <CurrentHealth>k__BackingField: 0
+  _speedUpdate: 0.9
 --- !u!114 &3184670049456699018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -742,6 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 307f80a854975d9459e9ae03a4a0f59d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _characteristic: {fileID: 11400000, guid: db7f1dda93de90345939ef4a99e934fc, type: 2}
 --- !u!114 &124253210061129680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -757,6 +740,7 @@ MonoBehaviour:
   _targetAt: {fileID: 2027081228585999324}
   _targetTo: {fileID: 9130103629086799121}
   _aggression: {fileID: 7103947805205213586}
+  _characteristic: {fileID: 11400000, guid: db7f1dda93de90345939ef4a99e934fc, type: 2}
 --- !u!114 &4038482595749208649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -769,6 +753,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211e8a93247cc8a4999a32f254391587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &5369215451731687201
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7841887267428314801}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.0001, y: 0.0001}
+  m_EdgeRadius: 0
 --- !u!1 &8825463936355057403
 GameObject:
   m_ObjectHideFlags: 0

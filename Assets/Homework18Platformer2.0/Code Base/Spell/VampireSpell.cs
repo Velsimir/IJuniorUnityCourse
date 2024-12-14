@@ -65,17 +65,16 @@ namespace Homework18
 
             if (enemy != null)
             {
-                if (enemy.CurrentHealth - _damage >= 0)
-                {
-                    enemy.TakeDamage(_damage);
-                    _player.IncreaseHealth(_damage);
-                }
-                else
+                if (enemy.CurrentHealth - _damage <= 0)
                 {
                     enemy.TakeDamage(_damage);
                     _player.IncreaseHealth(enemy.CurrentHealth);
                 }
-
+                else
+                {
+                    enemy.TakeDamage(_damage);
+                    _player.IncreaseHealth(_damage);
+                }
             }
         }
 
@@ -89,7 +88,7 @@ namespace Homework18
             {
                 if (collider.TryGetComponent(out Enemy enemy))
                 {
-                    if (closestDistance > Vector2.Distance(_player.transform.position, enemy.transform.position))
+                    if (closestDistance > Vector2.Distance(transform.position, enemy.transform.position))
                         closestEnemy = enemy;
                 }
             }

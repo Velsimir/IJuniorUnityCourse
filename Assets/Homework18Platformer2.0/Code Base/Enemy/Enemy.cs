@@ -1,23 +1,25 @@
-using System;
 using UnityEngine;
 
 namespace Homework18
 {
-    [RequireComponent(typeof(Characteristic))]
     [RequireComponent(typeof(Health))]
-    public class Enemy : MonoBehaviour
+    public class Enemy : MonoBehaviour, IDamageable, IDamageDealer, ICharacteristic
     {
+        [SerializeField] private CharacteristicSo _characteristic;
+        
         private Health _health;
-        private Characteristic _characteristic;
-        public int Damage { get; private set; }
-        public float CurrentHealth { get { return _health.CurrentHealth; } }
+        private float _damage;
+        
+        public float CurrentHealth => _health.CurrentHealth;
+        public float Damage => _damage;
+        public Health Health => _health;
+        public CharacteristicSo CharacteristicSo => _characteristic;
 
         private void Awake()
         {
-            _characteristic = GetComponent<Characteristic>();
             _health = GetComponent<Health>();
             _health.SetMaxHealth(_characteristic.MaxHealth);
-            Damage = _characteristic.Damage;
+            _damage = _characteristic.Damage;
         }
 
         private void OnEnable()
@@ -27,8 +29,8 @@ namespace Homework18
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.transform.TryGetComponent(out Player player))
-                TakeDamage(player.Damage);
+            if (collision.transform.TryGetComponent(out IDamageDealer damageDealer))
+                TakeDamage(damageDealer.Damage);
         }
         
         private void OnDisable()
@@ -36,7 +38,7 @@ namespace Homework18
             _health.HealthEnded -= Die;
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
             _health.Decrease(damage);
         }
