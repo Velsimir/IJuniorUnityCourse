@@ -7,7 +7,7 @@ namespace Homework18
     [RequireComponent(typeof(ItemCatcher))]
     public class Player : MonoBehaviour, IDamageable, IHealable, IDamageDealer, ITarget, ICharacteristic
     {
-        [SerializeField] private CharacteristicSo _characteristicSo;
+        [SerializeField] private Characteristic _characteristic;
         
         private Health _health;
         private int _damage;
@@ -16,13 +16,13 @@ namespace Homework18
         public bool IsOnFloor { get; private set; } = true;
         public float Damage => _damage;
         public Transform Transform => transform;
-        public CharacteristicSo CharacteristicSo => _characteristicSo;
+        public Characteristic Characteristic => _characteristic;
 
         private void Awake()
         {
             _health = GetComponent<Health>();
-            _damage = _characteristicSo.Damage;
-            _health.SetMaxHealth(_characteristicSo.MaxHealth);
+            _damage = _characteristic.Damage;
+            _health.SetMaxHealth(_characteristic.MaxHealth);
             _itemCatcher = GetComponent<ItemCatcher>();
         }
 

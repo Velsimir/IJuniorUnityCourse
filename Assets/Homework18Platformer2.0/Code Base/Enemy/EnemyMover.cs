@@ -9,7 +9,7 @@ namespace Homework18
         [SerializeField] private Transform _targetAt;
         [SerializeField] private Transform _targetTo;
         [SerializeField] private EnemyAggression _aggression;
-        [SerializeField] private CharacteristicSo _characteristic;
+        [SerializeField] private Characteristic _characteristic;
 
         private Transform _currentTarget;
         private Transform _nextTarget;
@@ -22,7 +22,7 @@ namespace Homework18
 
         private void Awake()
         {
-            _characteristic = GetComponent<ICharacteristic>().CharacteristicSo;
+            _characteristic = GetComponent<ICharacteristic>().Characteristic;
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _currentTarget = _targetTo;
             _nextTarget = _targetAt;

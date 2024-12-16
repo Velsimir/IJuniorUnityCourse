@@ -5,14 +5,14 @@ namespace Homework18
     [RequireComponent(typeof(Health))]
     public class Enemy : MonoBehaviour, IDamageable, IDamageDealer, ICharacteristic
     {
-        [SerializeField] private CharacteristicSo _characteristic;
+        [SerializeField] private Characteristic _characteristic;
         
         private Health _health;
         private float _damage;
         
         public float CurrentHealth => _health.CurrentHealth;
         public float Damage => _damage;
-        public CharacteristicSo CharacteristicSo => _characteristic;
+        public Characteristic Characteristic => _characteristic;
 
         private void Awake()
         {

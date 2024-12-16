@@ -2,6 +2,6 @@ namespace Homework18
 {
     public interface ICharacteristic
     {
-        public CharacteristicSo CharacteristicSo { get; }
+        public Characteristic Characteristic { get; }
     }
 }

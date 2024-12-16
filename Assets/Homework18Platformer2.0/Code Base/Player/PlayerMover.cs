@@ -7,7 +7,7 @@ namespace Homework18
     [RequireComponent(typeof(PlayerInputHandler))]
     public class PlayerMover : MonoBehaviour
     {
-        private CharacteristicSo _characteristic;
+        private Characteristic _characteristic;
         private PlayerInputHandler _playerInputHandler;
         private Player _player;
         private Rigidbody2D _rigidbody2D;
@@ -15,7 +15,7 @@ namespace Homework18
 
         private void Awake()
         {
-            _characteristic = GetComponent<ICharacteristic>().CharacteristicSo;
+            _characteristic = GetComponent<ICharacteristic>().Characteristic;
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _player = GetComponent<Player>();
             _playerInputHandler = GetComponent<PlayerInputHandler>();
