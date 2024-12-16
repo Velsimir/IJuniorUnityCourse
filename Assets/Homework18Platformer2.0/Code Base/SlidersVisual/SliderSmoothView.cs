@@ -4,9 +4,10 @@ using UnityEngine.UI;
 
 namespace Homework18
 {
-    public class SliderSmoothView : MonoBehaviour, ISliderView
+    public class SliderSmoothView : MonoBehaviour
     {
-        private float _currentValue;
+        private IValueProvide _valueProvide;
+        
         private Slider _slider;
         private float _sliderPercent;
         private Coroutine _coroutineChangeValue;
@@ -16,8 +17,19 @@ namespace Homework18
             _slider = GetComponent<Slider>();
             _sliderPercent = (_slider.maxValue - _slider.minValue) / 100;
         }
+        
+        private void OnDisable()
+        {
+            _valueProvide.ValueChanged -= UpdateValue;
+        }
 
-        public void UpdateValue(float maxValue, float targetValue, float fixedTime)
+        public void Initialize(IValueProvide valueProvide)
+        {
+            _valueProvide = valueProvide;
+            _valueProvide.ValueChanged += UpdateValue;
+        }
+
+        private void UpdateValue(float maxValue, float targetValue, float fixedTime)
         {
             if (_coroutineChangeValue != null)
             {

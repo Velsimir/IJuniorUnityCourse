@@ -11,12 +11,12 @@ namespace Homework18
         [SerializeField] private float _cooldown;
         [SerializeField] private float _tickInterval;
         [SerializeField] private int _damage;
-        [SerializeField] private Player _player;
 
         private Coroutine _coroutineSpell;
         private SpriteRenderer _circleRenderer;
         private Color _circleColorDefault;
         private Color _circleColorAlpha0 = new Color(1, 1, 1, 0);
+        private WaitForSeconds _wait;
         
         private void Awake()
         {
@@ -26,9 +26,10 @@ namespace Homework18
             _circleRenderer.transform.localScale = new Vector3(_radius * 2, _radius * 2, 1f);
             _circleColorDefault = _circleRenderer.color;
             _circleRenderer.color = _circleColorAlpha0;
+            _wait = new WaitForSeconds(_tickInterval);
         }
         
-        public override void Use()
+        public override void Use(IHealable playerHealth)
         {
             if (_coroutineSpell != null)
             {
@@ -36,12 +37,11 @@ namespace Homework18
                 _coroutineSpell = null;
             }
 
-            _coroutineSpell = StartCoroutine(Cast());
+            _coroutineSpell = StartCoroutine(Cast(playerHealth));
         }
 
-        protected override IEnumerator Cast()
+        protected override IEnumerator Cast(IHealable playerHealth)
         {
-            WaitForSeconds wait = new WaitForSeconds(_tickInterval);
             float currentTime = 0f;
                 
             _circleRenderer.color = _circleColorDefault;
@@ -49,9 +49,9 @@ namespace Homework18
             while (currentTime < _duration)
             {
                 currentTime += _tickInterval;
-                MakeVampirize();
+                MakeVampirize(playerHealth);
                     
-                yield return wait;
+                yield return _wait;
             }
                 
             SendCastFinished();
@@ -59,21 +59,21 @@ namespace Homework18
             _circleRenderer.color = _circleColorAlpha0;
         }
 
-        private void MakeVampirize()
+        private void MakeVampirize(IHealable playerHealth)
         {
             Enemy enemy = FindClosestEnemy();
 
             if (enemy != null)
             {
-                if (enemy.CurrentHealth - _damage <= 0)
+                if (enemy.CurrentHealth <= _damage)
                 {
+                    playerHealth.IncreaseHealth(enemy.CurrentHealth);
                     enemy.TakeDamage(_damage);
-                    _player.IncreaseHealth(enemy.CurrentHealth);
                 }
                 else
                 {
+                    playerHealth.IncreaseHealth(_damage);
                     enemy.TakeDamage(_damage);
-                    _player.IncreaseHealth(_damage);
                 }
             }
         }

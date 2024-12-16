@@ -3,35 +3,43 @@ using UnityEngine;
 
 namespace Homework18
 {
-    public class Health : MonoBehaviour
+    public class Health : MonoBehaviour, IValueProvide
     {
-        [SerializeField] private SliderSmoothView _sliderSmoothView;
         [SerializeField] private float _speedUpdate;
-        public float MaxHealth { get; private set; }
-        public float CurrentHealth { get; private set; }
+        [SerializeField] private SliderSmoothView _sliderSmoothView;
+
+        private float _maxHealth;
 
         public event Action HealthEnded;
+        public event Action<float, float, float> ValueChanged;
+
+        public float CurrentHealth { get; private set; }
+
+        private void Awake()
+        {
+            _sliderSmoothView.Initialize(this);
+        }
 
         public void SetMaxHealth(float maxHealth)
         {
             if (maxHealth > 0)
-                MaxHealth = maxHealth;
+                _maxHealth = maxHealth;
             
-            CurrentHealth = MaxHealth;
+            CurrentHealth = _maxHealth;
             
-            _sliderSmoothView.UpdateValue(MaxHealth,CurrentHealth, 0);
+            ValueChanged?.Invoke(_maxHealth,CurrentHealth, 0);
         }
 
         public void Increase(float value)
         {
             if (value >= 0)
             {
-                if (value + CurrentHealth > MaxHealth)
-                    CurrentHealth = MaxHealth;
+                if (value + CurrentHealth > _maxHealth)
+                    CurrentHealth = _maxHealth;
                 else
                     CurrentHealth += value;
 
-                _sliderSmoothView.UpdateValue(MaxHealth, CurrentHealth, _speedUpdate);
+                ValueChanged?.Invoke(_maxHealth, CurrentHealth, _speedUpdate);
             }
         }
 
@@ -49,7 +57,7 @@ namespace Homework18
                     CurrentHealth -= value;
                 }
                 
-                _sliderSmoothView.UpdateValue(MaxHealth, CurrentHealth, _speedUpdate);
+                ValueChanged?.Invoke(_maxHealth, CurrentHealth, _speedUpdate);
             }
         }
     }

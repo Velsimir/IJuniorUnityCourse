@@ -4,7 +4,7 @@ using UnityEngine.UI;
 namespace Homework18
 {
     [RequireComponent(typeof(Slider))]
-    public class SliderView : MonoBehaviour, ISliderView
+    public class SliderView : MonoBehaviour
     {
         private float _maxValue;
         private Slider _slider;

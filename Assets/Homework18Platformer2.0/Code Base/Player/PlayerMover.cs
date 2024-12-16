@@ -11,7 +11,7 @@ namespace Homework18
         private PlayerInputHandler _playerInputHandler;
         private Player _player;
         private Rigidbody2D _rigidbody2D;
-        private Vector2 _directon;
+        private Vector2 _direction;
 
         private void Awake()
         {
@@ -27,7 +27,7 @@ namespace Homework18
             _playerInputHandler.JumpButtonPressed += Jump;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             Move();
         }
@@ -40,7 +40,7 @@ namespace Homework18
 
         private void SetDirection(Vector2 directon)
         {
-            _directon = new Vector2(directon.x, 0);
+            _direction = new Vector2(directon.x, 0);
         }
 
         private void Jump()
@@ -52,7 +52,7 @@ namespace Homework18
         private void Move()
         {
             _rigidbody2D.linearVelocity =
-                new Vector2(_directon.x * _characteristic.Speed, _rigidbody2D.linearVelocity.y);
+                new Vector2(_direction.x * _characteristic.Speed, _rigidbody2D.linearVelocity.y);
         }
     }
 }

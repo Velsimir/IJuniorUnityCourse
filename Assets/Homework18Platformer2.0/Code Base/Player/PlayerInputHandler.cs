@@ -29,7 +29,7 @@ namespace Homework18
         private void OnDisable()
         {
             _inputSystem.Player.Move.performed -= OnMove;
-            _inputSystem.Player.Move.canceled += OnMove;
+            _inputSystem.Player.Move.canceled -= OnMove;
             _inputSystem.Player.Jump.performed -= OnJump;
             _inputSystem.Player.Attack.performed -= OnAttack;
             _inputSystem.Disable();

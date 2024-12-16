@@ -11,8 +11,8 @@ namespace Homework18
         
         public event Action CastFinished;
         
-        public abstract void Use();
-        protected abstract IEnumerator Cast();
+        public abstract void Use(IHealable playerHealth);
+        protected abstract IEnumerator Cast(IHealable playerHealth);
 
         protected void SendCastFinished()
         {

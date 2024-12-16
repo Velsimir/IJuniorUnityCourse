@@ -12,7 +12,6 @@ namespace Homework18
         
         public float CurrentHealth => _health.CurrentHealth;
         public float Damage => _damage;
-        public Health Health => _health;
         public CharacteristicSo CharacteristicSo => _characteristic;
 
         private void Awake()

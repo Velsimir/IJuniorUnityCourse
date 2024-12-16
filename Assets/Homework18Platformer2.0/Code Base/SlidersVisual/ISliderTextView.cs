@@ -4,7 +4,7 @@ using TMPro;
 namespace Homework18
 {
     [RequireComponent(typeof(TMPro.TextMeshProUGUI))]
-    public class ISliderTextView : MonoBehaviour, ISliderView
+    public class ISliderTextView : MonoBehaviour
     {
         private TextMeshProUGUI _text;
 
