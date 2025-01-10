@@ -37,9 +37,7 @@ namespace Homework19.BombLogic
         {
             List<IExplosive> explosiveObjects = new List<IExplosive>();
 
-            Collider[] colliders = Physics.OverlapSphere(_rigidbody.position, _radius);
-
-            foreach (var collider in colliders)
+            foreach (var collider in Physics.OverlapSphere(_rigidbody.position, _radius))
             {
                 if (collider.TryGetComponent(out IExplosive explosive))
                     explosiveObjects.Add(explosive);

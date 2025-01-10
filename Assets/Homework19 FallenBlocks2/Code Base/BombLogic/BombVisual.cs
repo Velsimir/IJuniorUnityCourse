@@ -17,7 +17,7 @@ namespace Homework19.BombLogic
         public void UpdateColorChange(float deltaTime)
         {
             _currentAlpha -= _fadeStep * deltaTime;
-            _renderer.material.color = new Color(0,0,0, _currentAlpha);
+            _renderer.material.color = new Color(_standartColor.r,_standartColor.g,_standartColor.b, _currentAlpha);
 
             if (_currentAlpha < 0)
                 _currentAlpha = 0;

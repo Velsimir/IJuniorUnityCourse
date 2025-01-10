@@ -22,7 +22,15 @@ namespace Homework19.BombLogic
         private float _maxTimeToExplode = 5f;
         
         private bool _isActive;
-
+        
+        public void Initialize()
+        {
+            _rigidbody = GetComponent<Rigidbody>();
+            _renderer = GetComponent<Renderer>();
+            _visual = new BombVisual(_renderer);
+            _exploder = new BombExploder(_rigidbody, _radius, _force);
+        }
+        
         public event Action<Bomb> Disappeared;
         
         private void Update()
@@ -32,14 +40,6 @@ namespace Homework19.BombLogic
             
             _visual.UpdateColorChange(Time.deltaTime);
             _timer.Update(Time.deltaTime);
-        }
-        
-        public void Initialize()
-        {
-            _rigidbody = GetComponent<Rigidbody>();
-            _renderer = GetComponent<Renderer>();
-            _visual = new BombVisual(_renderer);
-            _exploder = new BombExploder(_rigidbody, _radius, _force);
         }
 
         public void StartWork()

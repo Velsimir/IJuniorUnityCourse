@@ -22,8 +22,6 @@ namespace Homework19
 
         private Coroutine _coroutineTurnOn;
 
-        public event Action<Cube> OnCubeSpawned;
-
         public void Initialize(ObjectSpawner<Cube> spawner, ObjectPool<Cube> pool)
         {
             _spawnArea = GetComponent<Collider>();
@@ -35,6 +33,8 @@ namespace Homework19
             _zMinPosition = _spawnArea.bounds.min.z;
             _zMaxPosition = _spawnArea.bounds.max.z;
         }
+        
+        public event Action<Cube> OnCubeSpawned;
 
         public void StartWork()
         {

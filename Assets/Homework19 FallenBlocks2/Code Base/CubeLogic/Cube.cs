@@ -16,16 +16,6 @@ namespace Homework19
         private float _minLifeTime = 2f;
         private float _maxLifeTime = 5f;
 
-        public Rigidbody Rigidbody { get; private set; }
-        
-        public event Action<Cube> Disappeared;
-
-        private void Update()
-        {
-            if (_isInteract)
-                _timer.Update(Time.deltaTime);
-        }
-
         public void Initialize()
         {
             _renderer = GetComponent<MeshRenderer>();
@@ -33,6 +23,16 @@ namespace Homework19
             
             _cubeVisual = new CubeVisual(_renderer);
             _isInteract = false;
+        }
+        
+        public event Action<Cube> Disappeared;
+        
+        public Rigidbody Rigidbody { get; private set; }
+        
+        private void Update()
+        {
+            if (_isInteract)
+                _timer.Update(Time.deltaTime);
         }
 
         private void OnCollisionEnter(Collision other)
@@ -45,9 +45,9 @@ namespace Homework19
         {
             if (_isInteract)
                 return;
-            
-            _cubeVisual.ChangeColor();
 
+            _cubeVisual.ChangeColor();
+            
             _timer = new Timer(Random.Range(_minLifeTime, _maxLifeTime));
             _timer.OnTimerEnd += Disappear;
             

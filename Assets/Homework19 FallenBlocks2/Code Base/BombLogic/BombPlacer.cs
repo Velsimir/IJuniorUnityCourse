@@ -24,16 +24,15 @@ namespace Homework19.BombLogic
             if (_pool.HasFreeObject)
             {
                 bomb = _pool.GetFreeObject();
-                SetPlace(bomb, cube.transform.position, cube.transform.rotation);
-                bomb.StartWork();
             }
             else
             {
                 bomb = _spawner.Spawn();
-                SetPlace(bomb, cube.transform.position, cube.transform.rotation);
-                bomb.StartWork();
                 _pool.TrackNewObject(bomb);
             }
+
+            SetPlace(bomb, cube.transform.position, cube.transform.rotation);
+            bomb.StartWork();
             
             cube.Disappeared -= Spawn;
         }
@@ -43,12 +42,10 @@ namespace Homework19.BombLogic
             cube.Disappeared += Spawn;
         }
 
-        private Bomb SetPlace(Bomb bomb, Vector3 position, Quaternion rotation)
+        private void SetPlace(Bomb bomb, Vector3 position, Quaternion rotation)
         {
             bomb.transform.position = position;
             bomb.transform.rotation = rotation;
-
-            return bomb;
         }
     }
 }
