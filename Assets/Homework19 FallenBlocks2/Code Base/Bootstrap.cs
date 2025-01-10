@@ -8,6 +8,8 @@ namespace Homework19
         [SerializeField] private Cube _cubePrefab;
         [SerializeField] private Bomb _bombPrefab;
         [SerializeField] private CubeThrower _cubeThrower;
+        [SerializeField] private CounterView _counterCubesView;
+        [SerializeField] private CounterView _counterBombsView;
         
         private ObjectSpawner<Cube> _cubeSpawner;
         private ObjectPool<Cube> _cubesPool;
@@ -16,6 +18,8 @@ namespace Homework19
         private ObjectPool<Bomb> _bombPool;
         
         private BombPlacer _bombPlacer;
+        private ObjectCounter _cubesCounter;
+        private ObjectCounter _bombCounter;
         
         private void Awake()
         {
@@ -34,6 +38,12 @@ namespace Homework19
             _bombPlacer = new BombPlacer(_bombSpawner, _bombPool, _cubeThrower);
             
             _cubeThrower.StartWork();
+
+            _cubesCounter = new ObjectCounter(_cubesPool);
+            _bombCounter = new ObjectCounter(_bombPool);
+            
+            _counterCubesView.Initialize(_cubesCounter);
+            _counterBombsView.Initialize(_bombCounter);
         }
     }
 }

@@ -1,22 +1,28 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Homework19
 {
-    public class ObjectPool<T> where T : MonoBehaviour, IDisappeared<T>
+    public class ObjectPool<T> : ICounter where T : MonoBehaviour, IDisappeared<T>
     {
         private List<T> _freeObjects;
         
-        public bool HasFreeObject => _freeObjects.Count > 0;
-
         public void Initialize()
         {
             _freeObjects = new List<T>();
         }
+        
+        public event Action NewObjectAdded;
+        public event Action ObjectSent;
+        
+        public bool HasFreeObject => _freeObjects.Count > 0;
+        public int Count => _freeObjects.Count;
 
         public void TrackNewObject(T newObject)
         {
             newObject.Disappeared += AddFreeObject;
+            NewObjectAdded?.Invoke();
         }
 
         public T GetFreeObject()
@@ -25,6 +31,8 @@ namespace Homework19
             _freeObjects.Remove(objectFromPool);
             objectFromPool.Disappeared += AddFreeObject;
             objectFromPool.gameObject.SetActive(true);
+            
+            ObjectSent?.Invoke();
             
             return objectFromPool;
         }
