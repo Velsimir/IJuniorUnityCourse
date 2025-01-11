@@ -4,32 +4,32 @@ using Homework19;
 public class ObjectCounter
 {
     private int _countOfAllObjects;
-    public int CountOfAllObjects { get; private set; }
-    public int CountOfAllObjectsOnScene { get; private set; }
-    public int CountOfActiveObjects { get; private set; }
+    private ICounter _countableObject;
     
-    private ICounter _counter;
-    
-    public ObjectCounter(ICounter counter)
+    public ObjectCounter(ICounter countableObject)
     {
-        _counter = counter;
-        _counter.NewObjectAdded += UpdateAmountAllObjectsOnScene;
-        _counter.ObjectSent += UpdateAllObjectsAmount;
+        _countableObject = countableObject;
+        _countableObject.NewObjectAdded += UpdateAmountAllObjectsOnScene;
+        _countableObject.ObjectSent += UpdateAllObjectsAmount;
     }
 
     ~ObjectCounter()
     {
-        _counter.NewObjectAdded -= UpdateAmountAllObjectsOnScene;
-        _counter.ObjectSent -= UpdateAllObjectsAmount;
+        _countableObject.NewObjectAdded -= UpdateAmountAllObjectsOnScene;
+        _countableObject.ObjectSent -= UpdateAllObjectsAmount;
     }
 
+    public int CountOfAllObjects { get; private set; }
+    public int CountOfAllObjectsOnScene { get; private set; }
+    public int CountOfActiveObjects { get; private set; }
+    
     public event Action CounterUpdated;
 
     private void UpdateAmountAllObjectsOnScene()
     {
         CountOfAllObjectsOnScene++;
         CountOfAllObjects++;
-        CountOfActiveObjects = CountOfAllObjectsOnScene - _counter.Count;
+        CountOfActiveObjects = CountOfAllObjectsOnScene - _countableObject.Count;
         
         CounterUpdated?.Invoke();
     }
@@ -38,7 +38,7 @@ public class ObjectCounter
     {
         CountOfAllObjects++;
         
-        CountOfActiveObjects = CountOfAllObjectsOnScene - _counter.Count;
+        CountOfActiveObjects = CountOfAllObjectsOnScene - _countableObject.Count;
         
         CounterUpdated?.Invoke();
     }

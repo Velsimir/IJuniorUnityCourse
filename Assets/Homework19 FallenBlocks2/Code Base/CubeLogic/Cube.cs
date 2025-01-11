@@ -49,14 +49,14 @@ namespace Homework19
             _cubeVisual.ChangeColor();
             
             _timer = new Timer(Random.Range(_minLifeTime, _maxLifeTime));
-            _timer.OnTimerEnd += Disappear;
+            _timer.TimeEnded += Disappear;
             
             _isInteract = true;
         }
 
         private void Disappear()
         {
-            _timer.OnTimerEnd -= Disappear;
+            _timer.TimeEnded -= Disappear;
             _cubeVisual.SetOriginalColor();
             _isInteract = false;
             Disappeared?.Invoke(this);

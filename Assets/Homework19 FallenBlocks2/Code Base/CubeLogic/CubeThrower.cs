@@ -18,14 +18,12 @@ namespace Homework19
         private float _zMaxPosition;
 
         private ObjectSpawner<Cube> _cubeSpawner;
-        private ObjectPool<Cube> _cubesPool;
 
         private Coroutine _coroutineTurnOn;
 
-        public void Initialize(ObjectSpawner<Cube> spawner, ObjectPool<Cube> pool)
+        public void Initialize(ObjectSpawner<Cube> spawner)
         {
             _spawnArea = GetComponent<Collider>();
-            _cubesPool = pool;
             _cubeSpawner = spawner;
 
             _xMinPosition = _spawnArea.bounds.min.x;
@@ -55,19 +53,11 @@ namespace Homework19
             
             while (true)
             {
-                if (_cubesPool.HasFreeObject)
-                {
-                    cube = _cubesPool.GetFreeObject();
-                    RefreshCubePosition(cube);
-                    OnCubeSpawned?.Invoke(cube);
-                }
-                else
-                {
-                    cube = RefreshCubePosition(_cubeSpawner.Spawn());
-                    _cubesPool.TrackNewObject(cube);
-                    OnCubeSpawned?.Invoke(cube);
-                }
-
+                cube = _cubeSpawner.Spawn();
+                RefreshCubePosition(cube);
+                
+                OnCubeSpawned?.Invoke(cube);
+                
                 yield return wait;
             }
         }

@@ -20,7 +20,7 @@ namespace Homework19.BombLogic
         public void StartWork(Timer timer)
         {
             _timer = timer;
-            _timer.OnTimerEnd += Explode;
+            _timer.TimeEnded += Explode;
         }
 
         private void Explode()
@@ -30,7 +30,7 @@ namespace Homework19.BombLogic
                 explosive.Rigidbody.AddExplosionForce(_force, _rigidbody.position, _radius);
             }
             
-            _timer.OnTimerEnd -= Explode;
+            _timer.TimeEnded -= Explode;
         }
 
         private List<IExplosive> TryFindAllExplosiveObjects()

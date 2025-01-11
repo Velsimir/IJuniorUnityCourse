@@ -13,7 +13,7 @@ namespace Homework19
             _isActive = true;
         }
 
-        public event Action OnTimerEnd;
+        public event Action TimeEnded;
         
         public void Update(float deltaTime)
         {
@@ -24,7 +24,7 @@ namespace Homework19
 
             if (_timeToEnd <= 0)
             {
-                OnTimerEnd?.Invoke();
+                TimeEnded?.Invoke();
                 _isActive = false;
             }
         }

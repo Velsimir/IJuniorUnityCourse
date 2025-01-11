@@ -8,7 +8,7 @@ namespace Homework19
     {
         private List<T> _freeObjects;
         
-        public void Initialize()
+        public ObjectPool()
         {
             _freeObjects = new List<T>();
         }
@@ -19,10 +19,12 @@ namespace Homework19
         public bool HasFreeObject => _freeObjects.Count > 0;
         public int Count => _freeObjects.Count;
 
-        public void TrackNewObject(T newObject)
+        public T TrackNewObject(T newObject)
         {
             newObject.Disappeared += AddFreeObject;
             NewObjectAdded?.Invoke();
+
+            return newObject;
         }
 
         public T GetFreeObject()

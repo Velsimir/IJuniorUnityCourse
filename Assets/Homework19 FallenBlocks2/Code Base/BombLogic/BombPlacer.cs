@@ -5,14 +5,12 @@ namespace Homework19.BombLogic
     public class BombPlacer
     {
         private ObjectSpawner<Bomb> _spawner;
-        private ObjectPool<Bomb> _pool;
         private CubeThrower _cubeThrower;
         private Bomb _bomb;
 
-        public BombPlacer(ObjectSpawner<Bomb> objectSpawner, ObjectPool<Bomb> pool, CubeThrower cubeThrower)
+        public BombPlacer(ObjectSpawner<Bomb> objectSpawner, CubeThrower cubeThrower)
         {
             _spawner = objectSpawner;
-            _pool = pool;
             _cubeThrower = cubeThrower;
             _cubeThrower.OnCubeSpawned += AcceptParentCube;
         }
@@ -21,15 +19,7 @@ namespace Homework19.BombLogic
         {
             Bomb bomb;
 
-            if (_pool.HasFreeObject)
-            {
-                bomb = _pool.GetFreeObject();
-            }
-            else
-            {
-                bomb = _spawner.Spawn();
-                _pool.TrackNewObject(bomb);
-            }
+            bomb = _spawner.Spawn();
 
             SetPlace(bomb, cube.transform.position, cube.transform.rotation);
             bomb.StartWork();

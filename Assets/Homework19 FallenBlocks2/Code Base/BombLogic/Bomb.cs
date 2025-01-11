@@ -46,7 +46,7 @@ namespace Homework19.BombLogic
         {
             float timeToExplode = Random.Range(_minTimeToExplode, _maxTimeToExplode);
             _timer = new Timer(timeToExplode);
-            _timer.OnTimerEnd += Disappear;
+            _timer.TimeEnded += Disappear;
             _visual.Refresh(timeToExplode);
             _exploder.StartWork(_timer);
             _isActive = true;
@@ -55,7 +55,7 @@ namespace Homework19.BombLogic
         private void Disappear()
         {
             _isActive = false;
-            _timer.OnTimerEnd -= Disappear;
+            _timer.TimeEnded -= Disappear;
             Disappeared?.Invoke(this);
         }
     }
