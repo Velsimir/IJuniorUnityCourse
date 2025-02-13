@@ -14,8 +14,6 @@ namespace Homework19
         private ObjectSpawner<Cube> _cubeSpawner;
         private ObjectSpawner<Bomb> _bombSpawner;
         
-        private BombPlacer _bombPlacer;
-        
         private void Awake()
         {
             _cubeSpawner = new ObjectSpawner<Cube>(_cubePrefab);
@@ -24,8 +22,8 @@ namespace Homework19
             _cubeThrower.Initialize(_cubeSpawner);
 
             _cubeThrower.StartWork();
-            
-            _bombPlacer = new BombPlacer(_bombSpawner, _cubeThrower);
+
+            new BombPlacer(_bombSpawner, _cubeThrower);
 
             _counterCubesView.Initialize(new ObjectCounter(_cubeSpawner.Pool));
             _counterBombsView.Initialize(new ObjectCounter(_bombSpawner.Pool));

@@ -31,7 +31,7 @@ namespace Homework19
             _zMinPosition = _spawnArea.bounds.min.z;
             _zMaxPosition = _spawnArea.bounds.max.z;
         }
-        
+
         public event Action<Cube> OnCubeSpawned;
 
         public void StartWork()
@@ -50,33 +50,32 @@ namespace Homework19
             WaitForSeconds wait = new WaitForSeconds(_delay);
 
             Cube cube;
-            
+
             while (true)
             {
                 cube = _cubeSpawner.Spawn();
                 RefreshCubePosition(cube);
-                
+
                 OnCubeSpawned?.Invoke(cube);
-                
+
                 yield return wait;
             }
         }
 
-    private Cube RefreshCubePosition(Cube cube)
-    {
-        cube.transform.position = GetRandomPosition();
+        private Cube RefreshCubePosition(Cube cube)
+        {
+            cube.transform.position = GetRandomPosition();
 
-        return cube;
+            return cube;
+        }
+
+        private Vector3 GetRandomPosition()
+        {
+            float xPosition = Random.Range(_xMinPosition, _xMaxPosition);
+            float yPosition = transform.position.y - 1;
+            float zPosition = Random.Range(_zMinPosition, _zMaxPosition);
+
+            return new Vector3(xPosition, yPosition, zPosition);
+        }
     }
-
-    private Vector3 GetRandomPosition()
-    {
-        float xPosition = Random.Range(_xMinPosition, _xMaxPosition);
-        float yPosition = transform.position.y - 1;
-        float zPosition = Random.Range(_zMinPosition, _zMaxPosition);
-
-        return new Vector3(xPosition, yPosition, zPosition);
-    }
-}
-
 }
